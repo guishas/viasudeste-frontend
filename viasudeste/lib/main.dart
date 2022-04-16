@@ -3,7 +3,7 @@ import 'package:viasudeste/library/navigation/routes_info.dart';
 import 'package:viasudeste/src/screens/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

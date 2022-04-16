@@ -59,12 +59,14 @@ class _SplashScreenState extends State<SplashScreen> {
           clipBehavior: Clip.none,
           children: [
             AnimatedPositioned(
-              top: moveAnimation ? 270 : -250,
+              top: moveAnimation ? MediaQuery.of(context).size.height/2 - 150 : -250,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/viasudeste-logo.png',
+                    'assets/images/viasudeste-logo-branco.png',
+                    height: 300,
+                    width: 300,
                   ),
                 ],
               ), 
@@ -72,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 milliseconds: 1400,
               ),
               curve: Curves.decelerate,
-            )
+            ),
           ],
         ),
       ),

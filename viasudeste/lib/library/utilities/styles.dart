@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
 class Styles {
-  static Color splashScreenBackgroundColor = Colors.grey.shade900;
+  static Color splashScreenBackgroundColor = Colors.grey.shade800;
 }
