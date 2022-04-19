@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.blue,
+        fontFamily: 'Cutive Mono',
       ),
       home: SplashScreen(),
       onGenerateRoute: (settings) {
