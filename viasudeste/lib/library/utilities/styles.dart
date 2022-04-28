@@ -5,4 +5,5 @@ class Styles {
   static Color mainWhiteColor = Colors.white;
   static Color mainBlackColor = Colors.black;
   static Color mainPinkColor = Color.fromRGBO(255, 169, 231, 1);
+  static Color lightGreyColor = Colors.grey.shade700;
 }
