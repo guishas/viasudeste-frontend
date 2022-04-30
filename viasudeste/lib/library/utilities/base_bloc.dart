@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 class BaseBloc {
   bool isOccupied = false;
 
-  final isLoading = BehaviorSubject<bool>();
+  final isLoading = BehaviorSubject<bool>.seeded(false);
   Stream<bool> get isLoadingStream => isLoading.stream;
 
   late BuildContext context;

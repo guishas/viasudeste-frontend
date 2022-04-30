@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:viasudeste/library/utilities/obj_mem.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/src/blocs/login_bloc.dart';
+import 'package:viasudeste/src/models/cliente_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ Key? key }) : super(key: key);
@@ -13,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   late LoginBloc _bloc;
 
+  final _formState = GlobalKey<FormState>();
   final _scaffoldState = GlobalKey<ScaffoldState>();
 
   @override
@@ -27,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldState,
       backgroundColor: Styles.mainWhiteColor,
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -60,15 +64,18 @@ class _LoginScreenState extends State<LoginScreen> {
             // ),
             Padding(
               padding: EdgeInsets.only(top: 80),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-                    child: Material(
-                      elevation: 3.0,
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      child: TextField(
+              child: Form(
+                key: _formState,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: TextFormField(
+                        controller: _bloc.emailController,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
+                          fillColor: Styles.mainWhiteColor,
+                          filled: true,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
                             borderSide: BorderSide(
@@ -89,152 +96,214 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Styles.mainGreyColor,
                             ),
                             borderRadius: BorderRadius.all(Radius.circular(25))
+                          ),
+                          errorStyle: TextStyle(
+                            fontFamily: 'Calibri',
                           )
                         ),
+                        cursorColor: Styles.mainGreyColor,
                         style: TextStyle(
                           color: Styles.mainGreyColor,
                           fontWeight: FontWeight.bold
                         ),
+                        validator: (String? text) {
+                          if (text != null && text.length > 0 && text.contains('@') && text.contains('.')) {
+                            return null;
+                          } else {
+                            return 'E-mail inválido.';
+                          }
+                        },
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                    child: Material(
-                      elevation: 3.0,
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                            borderSide: BorderSide(
-                              color: Styles.mainGreyColor,
-                            ),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock_rounded,
-                            color: Styles.mainGreyColor,
-                          ),
-                          hintText: 'Senha',
-                          hintStyle: TextStyle(
-                            color: Styles.mainGreyColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Styles.mainGreyColor,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(25))
-                          )
-                        ),
-                        style: TextStyle(
-                          color: Styles.mainGreyColor,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            StreamBuilder<bool>(
-                              stream: _bloc.rememberMe.stream,
-                              builder: (context, snapshot) {
-                                return Checkbox(
-                                  value: _bloc.rememberMe.value, 
-                                  onChanged: (bool? value) {
-                                    _bloc.rememberMe.sink.add(value!);
+                    Padding(
+                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      child: StreamBuilder<bool>(
+                        stream: _bloc.showPassword.stream,
+                        builder: (context, snapshot) {
+                          return TextFormField(
+                            controller: _bloc.passwordController,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(25)),
+                                borderSide: BorderSide(
+                                  color: Styles.mainGreyColor,
+                                ),
+                              ),
+                              prefixIcon: Icon(
+                                Icons.lock_rounded,
+                                color: Styles.mainGreyColor,
+                              ),
+                              suffixIcon: Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: IconButton(
+                                  icon: Icon(
+                                    _bloc.showPassword.value ? Icons.visibility_off : Icons.visibility,
+                                    color: Styles.mainGreyColor,
+                                  ),
+                                  onPressed: () {
+                                    _bloc.showPassword.sink.add(!_bloc.showPassword.value);
                                   },
-                                  activeColor: Styles.mainBlackColor,
-                                );
-                              }
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Lembrar',
-                              style: TextStyle(
-                                fontFamily: 'Cutive Mono',
-                                fontWeight: FontWeight.bold,
-                                color: Styles.mainBlackColor,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            // Abrir link
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 15),
-                            child: Text(
-                              'Esqueceu sua senha?',
-                              style: TextStyle(
-                                fontFamily: 'Cutive Mono',
+                              hintText: 'Senha',
+                              hintStyle: TextStyle(
+                                color: Styles.mainGreyColor,
                                 fontWeight: FontWeight.bold,
-                                color: Styles.mainBlackColor,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Styles.mainGreyColor,
+                                ),
+                                borderRadius: BorderRadius.all(Radius.circular(25))
+                              ),
+                              errorStyle: TextStyle(
+                                fontFamily: 'Calibri',
+                              )
+                            ),
+                            cursorColor: Styles.mainGreyColor,
+                            style: TextStyle(
+                              color: Styles.mainGreyColor,
+                              fontWeight: FontWeight.bold
+                            ),
+                            obscuringCharacter: '*',
+                            obscureText: _bloc.showPassword.value,
+                            validator: (String? text) {
+                              if (text != null && text.length > 0) {
+                                return null;
+                              } else {
+                                return 'Senha inválida.';
+                              }
+                            }, 
+                          );
+                        }
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              StreamBuilder<bool>(
+                                stream: _bloc.rememberMe.stream,
+                                builder: (context, snapshot) {
+                                  return Checkbox(
+                                    value: _bloc.rememberMe.value, 
+                                    onChanged: (bool? value) {
+                                      _bloc.rememberMe.sink.add(value!);
+                                    },
+                                    activeColor: Styles.mainBlackColor,
+                                  );
+                                }
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Lembrar',
+                                style: TextStyle(
+                                  fontFamily: 'Cutive Mono',
+                                  fontWeight: FontWeight.bold,
+                                  color: Styles.mainBlackColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // Abrir link
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Text(
+                                'Esqueceu sua senha?',
+                                style: TextStyle(
+                                  fontFamily: 'Cutive Mono',
+                                  fontWeight: FontWeight.bold,
+                                  color: Styles.mainBlackColor,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-
-                      }, 
-                      child: Text(
-                        'Entrar',
-                        style: TextStyle(
-                          fontFamily: 'Cutive Mono',
-                          fontWeight: FontWeight.bold,
-                          color: Styles.mainBlackColor,
-                          fontSize: 16,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Styles.mainPinkColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25))
-                        ),
-                        fixedSize: Size(200, 45)
+                        ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: ElevatedButton(
-                      onPressed: () {
-
-                      }, 
-                      child: Text(
-                        'Cadastrar',
-                        style: TextStyle(
-                          fontFamily: 'Cutive Mono',
-                          fontWeight: FontWeight.bold,
-                          color: Styles.mainBlackColor,
-                          fontSize: 16,
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          ClienteModel? clienteModel = await _bloc.login(context, _formState, _bloc.emailController.text.toString(), _bloc.passwordController.text.toString());
+              
+                          if (clienteModel != null) {
+                            ObjMem.currentUser = clienteModel;
+              
+                            if (_bloc.rememberMe.value) {
+                              _bloc.rememberUser();
+                            }
+              
+                            // Home page
+                          }
+                        }, 
+                        child: StreamBuilder<bool>(
+                          stream: _bloc.isLoading.stream,
+                          builder: (context, snapshot) {
+                            return _bloc.isLoading.value
+                              ? Container(
+                                  height: 25,
+                                  width: 25,
+                                  child: CircularProgressIndicator(
+                                    color: Styles.mainGreyColor,
+                                  ),
+                              )
+                              : Text(
+                                  'Entrar',
+                                  style: TextStyle(
+                                    fontFamily: 'Cutive Mono',
+                                    fontWeight: FontWeight.bold,
+                                    color: Styles.mainBlackColor,
+                                    fontSize: 16,
+                                  ),
+                                );
+                          }
                         ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Styles.mainLightPinkColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25))
+                        style: ElevatedButton.styleFrom(
+                          primary: Styles.mainPinkColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(25))
+                          ),
+                          fixedSize: Size(200, 45)
                         ),
-                        fixedSize: Size(200, 45)
                       ),
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: ElevatedButton(
+                        onPressed: () {
+              
+                        }, 
+                        child: Text(
+                          'Cadastrar',
+                          style: TextStyle(
+                            fontFamily: 'Cutive Mono',
+                            fontWeight: FontWeight.bold,
+                            color: Styles.mainBlackColor,
+                            fontSize: 16,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Styles.mainLightPinkColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(25))
+                          ),
+                          fixedSize: Size(200, 45)
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],
