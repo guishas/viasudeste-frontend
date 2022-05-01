@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:viasudeste/library/navigation/flows.dart';
 import 'package:viasudeste/library/utilities/obj_mem.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
+import 'package:viasudeste/library/utilities/utils.dart';
 import 'package:viasudeste/src/blocs/login_bloc.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 
@@ -138,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding: EdgeInsets.only(right: 8),
                                 child: IconButton(
                                   icon: Icon(
-                                    _bloc.showPassword.value ? Icons.visibility_off : Icons.visibility,
+                                    !_bloc.showPassword.value ? Icons.visibility_off : Icons.visibility,
                                     color: Styles.mainGreyColor,
                                   ),
                                   onPressed: () {
@@ -167,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.bold
                             ),
                             obscuringCharacter: '*',
-                            obscureText: _bloc.showPassword.value,
+                            obscureText: !_bloc.showPassword.value,
                             validator: (String? text) {
                               if (text != null && text.length > 0) {
                                 return null;
@@ -214,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              // Abrir link
+                              Utils().launchURL('https://powerful-shelf-46576.herokuapp.com/send-email/');
                             },
                             child: Padding(
                               padding: EdgeInsets.only(right: 15),
@@ -244,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _bloc.rememberUser();
                             }
               
-                            // Home page
+                            Navigator.pushReplacementNamed(context, Flows.home);
                           }
                         }, 
                         child: StreamBuilder<bool>(

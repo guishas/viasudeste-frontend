@@ -26,7 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void startApp() async {
-    isUserLogged = await loginHelper.getSharedPreferencesValue('isUserLogged');
+    loginHelper.addBoolToSharedPreferences('rememberUser', false);
+    isUserLogged = await loginHelper.getSharedPreferencesValue('rememberUser');
 
     await Future.delayed(Duration(milliseconds: splashScreenDuration), () {
       if (isUserLogged) {
