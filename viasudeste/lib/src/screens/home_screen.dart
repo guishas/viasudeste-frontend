@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:viasudeste/library/utilities/obj_mem.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -13,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Center(
         child: Text(
-          'HOME'
+          'HOME' + ObjMem.currentUser!.clienteId.toString(),
         ),
       ),
     );

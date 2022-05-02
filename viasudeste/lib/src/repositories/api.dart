@@ -7,7 +7,7 @@ class Api {
 
   Future<ClienteModel?> loginWithEmailAndPassword(String email, String password) async {
     try {
-      String _path = Config.apiEndpoint + 'clientes/login/$email/$password';
+      String _path = Config.apiEndpoint + 'login/$email/$password';
 
       Response _response = await Dio().get(_path);
 
