@@ -39,7 +39,7 @@ class LoginBloc extends BaseBloc {
       } else {
         isLoading.sink.add(false);
 
-        Utils().showsSnackBar(context, Text('Dados inválidos.'));
+        Utils().showSnackBar(context, Text('Dados inválidos.'));
         return null;
       }
     } else {
@@ -49,6 +49,6 @@ class LoginBloc extends BaseBloc {
 
   void rememberUser() {
     LoginHelper loginHelper = LoginHelper();
-    loginHelper.addBoolToSharedPreferences("isUserLogged", true);
+    loginHelper.addBoolToSharedPreferences("rememberUser", true);
   }
 }

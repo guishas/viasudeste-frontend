@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
   
-  void showsSnackBar(BuildContext context, Widget widget) {
+  void showSnackBar(BuildContext context, Widget widget) {
     final SnackBar snackbar = SnackBar(
       content: widget,
     );

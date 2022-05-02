@@ -33,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldState,
-      backgroundColor: Styles.mainWhiteColor,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -76,8 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _bloc.emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          fillColor: Styles.mainWhiteColor,
-                          filled: true,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
                             borderSide: BorderSide(
@@ -85,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           prefixIcon: Icon(
-                            Icons.person,
+                            Icons.mail_outline,
                             color: Styles.mainGreyColor,
                           ),
                           hintText: 'E-mail',
@@ -133,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               prefixIcon: Icon(
-                                Icons.lock_rounded,
+                                Icons.lock_outline_rounded,
                                 color: Styles.mainGreyColor,
                               ),
                               suffixIcon: Padding(
@@ -281,10 +278,46 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 5),
+                      child: Container(
+                        width: 190,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 5),
+                                child: Divider(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                  height: 1.5,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'OU',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 172, 172, 172),
+                                fontWeight: FontWeight.w600
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Divider(
+                                  color: Color.fromARGB(255, 172, 172, 172),
+                                  height: 1.5,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 5),
                       child: ElevatedButton(
                         onPressed: () {
-              
+                          Navigator.pushNamed(context, Flows.registrar);
                         }, 
                         child: Text(
                           'Cadastrar',
