@@ -9,6 +9,7 @@ import 'package:viasudeste/src/repositories/api.dart';
 class LoginBloc extends BaseBloc {
 
   final Api api = Api();
+  final LoginHelper loginHelper = LoginHelper();
 
   final rememberMe = BehaviorSubject<bool>.seeded(false);
   final showPassword = BehaviorSubject<bool>.seeded(false);
@@ -27,15 +28,15 @@ class LoginBloc extends BaseBloc {
     disposeBaseBloc();
   }
 
-  Future<ClienteModel?> login(BuildContext context, GlobalKey<FormState> formState, String email, String password) async {
+  Future<dynamic> login(BuildContext context, GlobalKey<FormState> formState, String email, String password) async {
     if (formState.currentState!.validate()) {
       isLoading.sink.add(true);
 
-      ClienteModel? clienteModel = await api.loginWithEmailAndPassword(email, password);
+      dynamic model = await api.loginWithEmailAndPassword(email, password);
 
-      if (clienteModel != null) {
+      if (model != null) {
         isLoading.sink.add(false);
-        return clienteModel;
+        return model;
       } else {
         isLoading.sink.add(false);
 
@@ -48,7 +49,6 @@ class LoginBloc extends BaseBloc {
   }
 
   void rememberUser() {
-    LoginHelper loginHelper = LoginHelper();
     loginHelper.addBoolToSharedPreferences("rememberUser", true);
   }
 }

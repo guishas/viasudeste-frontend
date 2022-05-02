@@ -5,14 +5,18 @@ import 'package:viasudeste/src/models/vendedor_model.dart';
 
 class Api {
 
-  Future<ClienteModel?> loginWithEmailAndPassword(String email, String password) async {
+  Future<dynamic> loginWithEmailAndPassword(String email, String password) async {
     try {
       String _path = Config.apiEndpoint + 'login/$email/$password';
 
       Response _response = await Dio().get(_path);
 
       if (_response.data["statusCode"] == "200") {
-        return ClienteModel.fromJson(_response.data["data"]);
+        if (_response.data["isVendedor"] == true) {
+          return VendedorModel.fromJson(_response.data["data"]);
+        } else {
+          return ClienteModel.fromJson(_response.data["data"]);
+        }
       } else {
         return null;
       }
@@ -47,6 +51,38 @@ class Api {
     if (_response.data["statusCode"] == '200') {
       return VendedorModel.fromJson(_response.data["data"]);
     } else {
+      return null;
+    }
+  }
+
+  Future<ClienteModel?> getCliente(String id) async {
+    try {
+      String _path = Config.apiEndpoint + 'clientes/$id';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        return ClienteModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<VendedorModel?> getVendedor(String id) async {
+    try {
+      String _path = Config.apiEndpoint + 'vendedores/$id';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        return VendedorModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }

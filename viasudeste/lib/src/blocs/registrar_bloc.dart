@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:viasudeste/library/utilities/base_bloc.dart';
+import 'package:viasudeste/library/utilities/login_helper.dart';
 import 'package:viasudeste/library/utilities/utils.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
@@ -9,6 +10,7 @@ import 'package:viasudeste/src/repositories/api.dart';
 class RegistrarBloc extends BaseBloc {
 
   final Api api = Api();
+  final LoginHelper loginHelper = LoginHelper();
 
   final List<String> accountOptions = ["Cliente", "Vendedor"];
   

@@ -7,13 +7,28 @@ class LoginHelper {
     prefs.setBool(key, value);
   }
 
-  Future<bool> getSharedPreferencesValue(String key) async {
+  void addStringToSharedPreferences(String key, String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, value);
+  }
+
+  Future<bool> getSharedPreferencesBoolValue(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(key) ?? false;
   }
 
-  void logoutUser() async {
+  Future<String> getSharedPreferencesStringValue(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isUserLogged', false);
+    return prefs.getString(key) ?? '';
+  }
+
+  Future<bool> hasValue(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(key);
+  }
+
+  Future<void> logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('rememberMe', false);
   }
 }

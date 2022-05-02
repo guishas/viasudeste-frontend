@@ -2,5 +2,6 @@ import 'package:viasudeste/src/models/cliente_model.dart';
 
 class ObjMem {
   
-  static ClienteModel? currentUser;
+  static dynamic currentUser;
+  static bool? isVendedor;
 }

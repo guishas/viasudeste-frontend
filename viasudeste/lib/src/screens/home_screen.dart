@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:viasudeste/library/navigation/flows.dart';
+import 'package:viasudeste/library/utilities/login_helper.dart';
 import 'package:viasudeste/library/utilities/obj_mem.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,8 +15,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          'HOME' + ObjMem.currentUser!.clienteId.toString(),
+        child: Column(
+          children: [
+            Text(
+              'HOME' + ObjMem.currentUser.toString(),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                LoginHelper loginhelper = LoginHelper();
+                await loginhelper.logoutUser();
+                Navigator.pushReplacementNamed(context, Flows.login);
+              }, 
+              child: Text('sair')
+            ),
+          ],
         ),
       ),
     );
