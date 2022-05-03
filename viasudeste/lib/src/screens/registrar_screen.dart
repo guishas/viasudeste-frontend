@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
+import 'package:viasudeste/library/utilities/utils.dart';
 import 'package:viasudeste/src/blocs/registrar_bloc.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
@@ -216,7 +217,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                       Padding(
                         padding: EdgeInsets.only(top: 20),
                         child: Container(
-                          height: 60,
+                          height: 80,
                           child: Stack(
                             children: [
                               Align(
@@ -230,31 +231,67 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                                   ),
                                 ),
                               ),
-                              FormBuilderRadioGroup(
-                                name: 'Account options', 
-                                options: _bloc.accountOptions.map(
-                                  (option) => FormBuilderFieldOption(
-                                    value: option,
-                                    child: Text(
-                                      '$option',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Styles.mainGreyColor
+                              Padding(
+                                padding: EdgeInsets.only(top: 5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 140,
+                                      child: StreamBuilder<String?>(
+                                        stream: _bloc.selectedOption.stream,
+                                        builder: (context, snapshot) {
+                                          return ListTile(
+                                            title: Text(
+                                              _bloc.accountOptions[0],
+                                              style: TextStyle(
+                                                color: Styles.mainBlackColor,
+                                                fontWeight: FontWeight.bold
+                                              ),
+                                            ),
+                                            leading: Radio<String>(
+                                              value: _bloc.accountOptions[0],
+                                              groupValue: _bloc.selectedOption.value,
+                                              onChanged: (String? value) {
+                                                _bloc.selectedOption.sink.add(value);
+                                              },
+                                              activeColor: Styles.mainBlackColor,
+                                            ),
+                                            contentPadding: EdgeInsets.zero,
+                                            horizontalTitleGap: 0,
+                                          );
+                                        }
                                       ),
                                     ),
-                                  )
-                                ).toList(),
-                                wrapAlignment: WrapAlignment.center,
-                                wrapCrossAxisAlignment: WrapCrossAlignment.center,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                  ),
+                                    SizedBox(
+                                      width: 140,
+                                      child: StreamBuilder<String?>(
+                                        stream: _bloc.selectedOption.stream,
+                                        builder: (context, snapshot) {
+                                          return ListTile(
+                                            title: Text(
+                                              _bloc.accountOptions[1],
+                                              style: TextStyle(
+                                                color: Styles.mainBlackColor,
+                                                fontWeight: FontWeight.bold
+                                              ),
+                                            ),
+                                            leading: Radio<String>(
+                                              value: _bloc.accountOptions[1],
+                                              groupValue: _bloc.selectedOption.value,
+                                              onChanged: (String? value) {
+                                                _bloc.selectedOption.sink.add(value);
+                                              },
+                                              activeColor: Styles.mainBlackColor,
+                                            ),
+                                            contentPadding: EdgeInsets.zero,
+                                            horizontalTitleGap: 0,
+                                          );
+                                        }
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                activeColor: Styles.mainBlackColor,
-                                onChanged: (String? option) {
-                                  _bloc.selectedOption.sink.add(option);
-                                },
                               ),
                               Align(
                                 alignment: Alignment.bottomCenter,
@@ -300,7 +337,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                                     return getAccountCreatedDialog(context, dialogContext);
                                   }
                                 );
-                              }
+                              } 
                             } else {
                               VendedorModel? model = await _bloc.createVendedorAccount(_formState, _bloc.emailController.text, _bloc.passwordController.text);
         
@@ -312,7 +349,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                                     return getAccountCreatedDialog(context, dialogContext);
                                   }
                                 );
-                              }
+                              } 
                             }
                           }, 
                           child: StreamBuilder<bool>(

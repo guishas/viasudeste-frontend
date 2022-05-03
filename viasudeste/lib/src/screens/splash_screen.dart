@@ -3,6 +3,9 @@ import 'package:viasudeste/library/navigation/flows.dart';
 import 'package:viasudeste/library/utilities/login_helper.dart';
 import 'package:viasudeste/library/utilities/obj_mem.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
+import 'package:viasudeste/src/models/cliente_model.dart';
+import 'package:viasudeste/src/models/user_model.dart';
+import 'package:viasudeste/src/models/vendedor_model.dart';
 import 'package:viasudeste/src/repositories/api.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -41,11 +44,13 @@ class _SplashScreenState extends State<SplashScreen> {
         }
 
         if (isVendedor != null && isVendedor == true) {
-          ObjMem.currentUser = await api.getVendedor(id);
+          VendedorModel? model = await api.getVendedor(id);
+          ObjMem.currentUser = UserModel.fromJson(model!.toJson(), true);
         } 
 
         if (isVendedor != null && isVendedor == false) {
-          ObjMem.currentUser = await api.getCliente(id);
+          ClienteModel? model = await api.getCliente(id);
+          ObjMem.currentUser = UserModel.fromJson(model!.toJson(), false);
         }
 
         Navigator.pushReplacementNamed(context, Flows.home);    

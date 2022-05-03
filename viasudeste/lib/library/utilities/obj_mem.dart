@@ -1,7 +1,7 @@
-import 'package:viasudeste/src/models/cliente_model.dart';
+import 'package:viasudeste/src/models/user_model.dart';
 
 class ObjMem {
   
-  static dynamic currentUser;
+  static UserModel? currentUser;
   static bool? isVendedor;
 }

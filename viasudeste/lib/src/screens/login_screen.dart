@@ -5,6 +5,7 @@ import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/library/utilities/utils.dart';
 import 'package:viasudeste/src/blocs/login_bloc.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
+import 'package:viasudeste/src/models/user_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -238,28 +239,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () async {
                           dynamic model = await _bloc.login(context, _formState, _bloc.emailController.text.toString(), _bloc.passwordController.text.toString());
 
-                          if (model is VendedorModel) {
-                            ObjMem.isVendedor = true;
-                            print((model as VendedorModel).toJson());
-                          } else {
-                            ObjMem.isVendedor = false;
-                            print((model as ClienteModel).toJson());
-                          }
-
                           if (model != null) {
-                            ObjMem.currentUser = model;
-              
+                            if (model is VendedorModel) {
+                              ObjMem.currentUser = UserModel.fromJson(model.toJson(), true);
+                            } else {
+                              ObjMem.currentUser = UserModel.fromJson((model as ClienteModel).toJson(), false);
+                            }
+
                             if (_bloc.rememberMe.value) {
                               _bloc.rememberUser();
                               _bloc.loginHelper.addBoolToSharedPreferences("isVendedor", false);
                               _bloc.loginHelper.addStringToSharedPreferences(
-                                "userId", ObjMem.isVendedor! 
-                                ? (model as VendedorModel).vendedorId! 
-                                : (model as ClienteModel).clienteId!);
+                                "userId", ObjMem.currentUser!.userId ?? '');
                             }
               
                             Navigator.pushReplacementNamed(context, Flows.home);
-                          }
+                          } 
                         }, 
                         child: StreamBuilder<bool>(
                           stream: _bloc.isLoading.stream,
