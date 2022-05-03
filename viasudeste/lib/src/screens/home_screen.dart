@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:viasudeste/library/navigation/flows.dart';
-import 'package:viasudeste/library/utilities/login_helper.dart';
-import 'package:viasudeste/library/utilities/obj_mem.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/src/blocs/home_bloc.dart';
+import 'package:viasudeste/src/screens/cart_screen.dart';
+import 'package:viasudeste/src/screens/categories_screen.dart';
+import 'package:viasudeste/src/screens/main_screen.dart';
+import 'package:viasudeste/src/screens/profile_screen.dart';
+import 'package:viasudeste/src/screens/wishlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -29,78 +31,101 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Styles.mainLightGreyColor,
-        title: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-            color: Styles.mainWhiteColor,
-          ),
-          width: MediaQuery.of(context).size.width,
-          height: 40,
-          child: Center(
-            child: TextField(
-              controller: _bloc.searchController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  borderSide: BorderSide.none
+      body: PageView(
+        controller: _bloc.pageController,
+        onPageChanged: (int? index) {
+          _bloc.currentNavBarIndex.sink.add(index!);
+        },
+        children: [
+          ProfileScreen(),
+          CategoriesScreen(),
+          MainScreen(),
+          CartScreen(),
+          WishlistScreen(),
+        ],
+      ),
+      bottomNavigationBar: StreamBuilder<int>(
+        stream: _bloc.currentNavBarIndex.stream,
+        builder: (context, snapshot) {
+          return BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Styles.mainLightGreyColor,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            currentIndex: _bloc.currentNavBarIndex.value,
+            onTap: (int? index) {
+              _bloc.currentNavBarIndex.sink.add(index!);
+              _bloc.pageController.jumpToPage(index);
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                  color: Styles.mainWhiteColor,
                 ),
-                hintText: 'Buscar',
-                hintStyle: TextStyle(
-                  fontFamily: 'Cutive Mono',
-                  fontWeight: FontWeight.bold,
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
+                label: 'Perfil',
+                activeIcon: Icon(
+                  Icons.person,
                   color: Styles.mainPinkColor,
                 ),
-                contentPadding: EdgeInsets.zero
+                tooltip: '',
+                backgroundColor: Styles.mainLightGreyColor,
               ),
-              onSubmitted: (String? value) {
-                print(value);
-              },
-              cursorColor: Styles.mainBlackColor,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.filter_alt,
+                  color: Styles.mainWhiteColor,
+                ),
+                label: 'Menu',
+                activeIcon: Icon(
+                  Icons.filter_alt,
+                  color: Styles.mainPinkColor,
+                ),
+                tooltip: '',
+                backgroundColor: Styles.mainLightGreyColor,
               ),
-            ),
-          ),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'HOME ' + ObjMem.currentUser!.userId.toString() + ' ' + ObjMem.currentUser!.userNome.toString(),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                LoginHelper loginhelper = LoginHelper();
-                await loginhelper.logoutUser();
-                Navigator.pushReplacementNamed(context, Flows.login);
-              }, 
-              child: Text('sair')
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings'
-          )
-        ],
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Styles.mainWhiteColor,
+                ),
+                label: 'Home',
+                activeIcon: Icon(
+                  Icons.home,
+                  color: Styles.mainPinkColor,
+                ),
+                tooltip: '',
+                backgroundColor: Styles.mainLightGreyColor,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Styles.mainWhiteColor,
+                ),
+                label: 'Cart',
+                activeIcon: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Styles.mainPinkColor,
+                ),
+                tooltip: '',
+                backgroundColor: Styles.mainLightGreyColor,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.favorite_border,
+                  color: Styles.mainWhiteColor,
+                ),
+                label: 'Cart',
+                activeIcon: Icon(
+                  Icons.favorite_border,
+                  color: Styles.mainPinkColor,
+                ),
+                tooltip: '',
+                backgroundColor: Styles.mainLightGreyColor,
+              )
+            ],
+          );
+        }
       ),
     );
   }
