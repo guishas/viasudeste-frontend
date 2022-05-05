@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:viasudeste/library/utilities/styles.dart';
+import 'package:viasudeste/src/blocs/profile_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({ Key? key }) : super(key: key);
@@ -8,105 +10,64 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  late ProfileBloc _bloc;
+
+  final _scaffoldState = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    _bloc = ProfileBloc();
+    _bloc.configContext(context, _scaffoldState);
+    _bloc.initStateScreen();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              color: Colors.orange,
-              height: MediaQuery.of(context).size.height/2,
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.pink,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.pink,
-                  )
-                ],
-              ),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 190,
+          childAspectRatio: 2 / 2,
+        ), 
+        itemCount: _bloc.items.length,
+        itemBuilder: (context, index) {
+          return Card(
+            color: Styles.mainLightGreyColor,
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            elevation: 8.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25))
             ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.blue,
-              height: MediaQuery.of(context).size.height/2,
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.pink,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  _bloc.items[index].iconData,
+                  size: 50,
+                  color: Styles.mainPinkColor,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 15),
+                  child: Text(
+                    _bloc.items[index].name.toString(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'Cutive Mono',
+                      fontWeight: FontWeight.bold,
+                      color: Styles.mainPinkColor,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.pink,
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.red,
-              height: MediaQuery.of(context).size.height/2,
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.pink,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.pink,
-                  )
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.purple,
-              height: MediaQuery.of(context).size.height/2,
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.pink,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    color: Colors.pink,
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+          );
+        }
+      )
     );
   }
 }
