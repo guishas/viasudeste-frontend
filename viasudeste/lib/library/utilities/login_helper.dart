@@ -29,6 +29,6 @@ class LoginHelper {
 
   Future<void> logoutUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('rememberMe', false);
+    prefs.setBool('rememberUser', false);
   }
 }

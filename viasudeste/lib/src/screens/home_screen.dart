@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.favorite_border,
                   color: Styles.mainWhiteColor,
                 ),
-                label: 'Cart',
+                label: 'Favorites',
                 activeIcon: Icon(
                   Icons.favorite_border,
                   color: Styles.mainPinkColor,

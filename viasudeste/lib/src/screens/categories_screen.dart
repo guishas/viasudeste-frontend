@@ -31,6 +31,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       stream: _bloc.categorias.stream,
       builder: (context, snapshot) {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Styles.mainLightGreyColor,
+            title: Text(
+              'Categorias',
+              textAlign: TextAlign.center,
+            ),
+            centerTitle: true,
+          ),
           body: _bloc.categorias.value == null
             ? Center(
                 child: CircularProgressIndicator(

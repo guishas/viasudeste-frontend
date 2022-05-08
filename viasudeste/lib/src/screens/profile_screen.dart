@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:viasudeste/library/navigation/flows.dart';
+import 'package:viasudeste/library/utilities/obj_mem.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/src/blocs/profile_bloc.dart';
 
@@ -27,47 +29,307 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 190,
-          childAspectRatio: 2 / 2,
-        ), 
-        itemCount: _bloc.items.length,
-        itemBuilder: (context, index) {
-          return Card(
-            color: Styles.mainLightGreyColor,
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            elevation: 8.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(25))
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  _bloc.items[index].iconData,
-                  size: 50,
-                  color: Styles.mainPinkColor,
+      appBar: AppBar(
+        backgroundColor: Styles.mainLightGreyColor,
+        title: Text(
+          'Perfil',
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Styles.mainLightPinkColor,
+              Styles.mainWhiteColor,
+            ],
+          )
+        ),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      ObjMem.currentUser!.userNome.toString(),
+                      style: TextStyle(
+                        fontFamily: 'Calibri',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 15),
-                  child: Text(
-                    _bloc.items[index].name.toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Cutive Mono',
-                      fontWeight: FontWeight.bold,
-                      color: Styles.mainPinkColor,
-                    ),
-                    textAlign: TextAlign.center,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.email_outlined,
+                    size: 20,
+                    color: Styles.mainLightGreyColor,
                   ),
-                )
-              ],
-            ),
-          );
-        }
-      )
+                  Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Text(
+                      ObjMem.currentUser!.userEmail.toString(),
+                      style: TextStyle(
+                        fontFamily: 'Calibri',
+                        fontSize: 16,
+                        color: Styles.mainLightGreyColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.phone,
+                    size: 20,
+                    color: Styles.mainLightGreyColor,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Text(
+                      ObjMem.currentUser!.userCelular.toString(),
+                      style: TextStyle(
+                        fontFamily: 'Calibri',
+                        fontSize: 16,
+                        color: Styles.mainLightGreyColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+                child: Divider(
+                  height: 5,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+        
+                  }, 
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.person,
+                              color: Styles.mainPinkColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Text(
+                                'Dados Pessoais',
+                                style: TextStyle(
+                                  color: Styles.mainLightGreyColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_right_outlined,
+                        color: Styles.mainLightGreyColor,
+                      )
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
+                    primary: Styles.mainWhiteColor,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+        
+                  }, 
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.list_alt_rounded,
+                              color: Styles.mainPinkColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Text(
+                                'Meus Pedidos',
+                                style: TextStyle(
+                                  color: Styles.mainLightGreyColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_right_outlined,
+                        color: Styles.mainLightGreyColor,
+                      )
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
+                    primary: Styles.mainWhiteColor,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+        
+                  }, 
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.payment_rounded,
+                              color: Styles.mainPinkColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Text(
+                                'Meus Pagamentos',
+                                style: TextStyle(
+                                  color: Styles.mainLightGreyColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_right_outlined,
+                        color: Styles.mainLightGreyColor,
+                      )
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
+                    primary: Styles.mainWhiteColor,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+        
+                  }, 
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.rate_review_outlined,
+                              color: Styles.mainPinkColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Text(
+                                'Minhas Avaliações',
+                                style: TextStyle(
+                                  color: Styles.mainLightGreyColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_right_outlined,
+                        color: Styles.mainLightGreyColor,
+                      )
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
+                    primary: Styles.mainWhiteColor,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    _bloc.loginHelper.logoutUser();
+                    Navigator.pushReplacementNamed(context, Flows.login);
+                  }, 
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.exit_to_app_outlined,
+                              color: Styles.mainPinkColor,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Text(
+                                'Sair',
+                                style: TextStyle(
+                                  color: Styles.mainLightGreyColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_right_outlined,
+                        color: Styles.mainLightGreyColor,
+                      )
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
+                    primary: Styles.mainWhiteColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
