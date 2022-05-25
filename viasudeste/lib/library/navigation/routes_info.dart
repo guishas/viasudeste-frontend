@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:viasudeste/src/screens/home_screen.dart';
 import 'package:viasudeste/src/screens/login_screen.dart';
+import 'package:viasudeste/src/screens/personal_data_screen.dart';
 import 'package:viasudeste/src/screens/registrar_screen.dart';
 import 'flows.dart';
 
@@ -21,6 +22,11 @@ class RoutesInfo {
       case Flows.registrar:
         return MaterialPageRoute(
           builder: (context) => RegistrarScreen(),
+          settings: settings,
+        );
+      case Flows.personal:
+        return MaterialPageRoute(
+          builder: (context) => PersonalDataScreen(),
           settings: settings,
         );
     }

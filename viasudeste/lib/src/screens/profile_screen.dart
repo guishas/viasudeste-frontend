@@ -124,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(top: 10),
                 child: ElevatedButton(
                   onPressed: () {
-        
+                    Navigator.pushNamed(context, Flows.personal);
                   }, 
                   child: Row(
                     children: [

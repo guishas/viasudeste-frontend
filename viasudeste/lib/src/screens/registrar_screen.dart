@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/library/utilities/utils.dart';
 import 'package:viasudeste/src/blocs/registrar_bloc.dart';
+import 'package:viasudeste/src/components/my_form_textfield.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
 
@@ -73,40 +74,10 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-                        child: TextFormField(
+                        child: MyFormTextField(
                           controller: _bloc.emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25)),
-                              borderSide: BorderSide(
-                                color: Styles.mainGreyColor,
-                              ),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.mail_outline,
-                              color: Styles.mainGreyColor,
-                            ),
-                            hintText: 'E-mail',
-                            hintStyle: TextStyle(
-                              color: Styles.mainGreyColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Styles.mainGreyColor,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(25))
-                            ),
-                            errorStyle: TextStyle(
-                              fontFamily: 'Calibri',
-                            )
-                          ),
-                          cursorColor: Styles.mainGreyColor,
-                          style: TextStyle(
-                            color: Styles.mainGreyColor,
-                            fontWeight: FontWeight.bold
-                          ),
+                          hintText: 'E-mail',
+                          icon: Icons.mail_outline,
                           validator: (String? text) {
                             if (text != null && text.length > 0 && text.contains('@') && text.contains('.')) {
                               return null;
@@ -118,42 +89,10 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: TextFormField(
+                        child: MyFormTextField(
                           controller: _bloc.passwordController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25)),
-                              borderSide: BorderSide(
-                                color: Styles.mainGreyColor,
-                              ),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.lock_outline_rounded,
-                              color: Styles.mainGreyColor,
-                            ),
-                            hintText: 'Senha',
-                            hintStyle: TextStyle(
-                              color: Styles.mainGreyColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Styles.mainGreyColor,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(25))
-                            ),
-                            errorStyle: TextStyle(
-                              fontFamily: 'Calibri',
-                            )
-                          ),
-                          cursorColor: Styles.mainGreyColor,
-                          style: TextStyle(
-                            color: Styles.mainGreyColor,
-                            fontWeight: FontWeight.bold
-                          ),
-                          obscuringCharacter: '*',
-                          obscureText: true,
+                          hintText: 'Senha',
+                          icon: Icons.lock_outline_rounded,
                           validator: (String? text) {
                             if (text == null || text.length == 0 || text.length < 8) {
                               return 'Senha inválida.';
@@ -162,47 +101,15 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             } else {
                               return null;
                             }
-                          }, 
-                        ),
+                          },
+                        )
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: TextFormField(
+                        child: MyFormTextField(
                           controller: _bloc.repeatPasswordController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25)),
-                              borderSide: BorderSide(
-                                color: Styles.mainGreyColor,
-                              ),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.lock_outline_rounded,
-                              color: Styles.mainGreyColor,
-                            ),
-                            hintText: 'Confirme a senha',
-                            hintStyle: TextStyle(
-                              color: Styles.mainGreyColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Styles.mainGreyColor,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(25))
-                            ),
-                            errorStyle: TextStyle(
-                              fontFamily: 'Calibri',
-                            )
-                          ),
-                          cursorColor: Styles.mainGreyColor,
-                          style: TextStyle(
-                            color: Styles.mainGreyColor,
-                            fontWeight: FontWeight.bold
-                          ),
-                          obscuringCharacter: '*',
-                          obscureText: true,
+                          hintText: 'Confirme a senha',
+                          icon: Icons.lock_outline_rounded,
                           validator: (String? text) {
                             if (text == null || text.length == 0 || text.length < 8) {
                               return 'Senha inválida.';
@@ -211,7 +118,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             } else {
                               return null;
                             }
-                          }, 
+                          },
                         ),
                       ),
                       Padding(
