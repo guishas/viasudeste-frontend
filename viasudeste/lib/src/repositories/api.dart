@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:viasudeste/library/utilities/config.dart';
 import 'package:viasudeste/src/models/categoria_model.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
+import 'package:viasudeste/src/models/estado_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
 
 class Api {
@@ -97,6 +98,26 @@ class Api {
       if (_response.statusCode == 200) {
         List<CategoriaModel> _list = (_response.data as List)
             .map((e) => new CategoriaModel.fromJson(e))
+            .toList();
+
+        return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<EstadoModel>?> getEstados() async {
+    try {
+      String _path = Config.apiEndpoint + 'estados/';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        List<EstadoModel> _list = (_response.data as List)
+            .map((e) => new EstadoModel.fromJson(e))
             .toList();
 
         return _list;

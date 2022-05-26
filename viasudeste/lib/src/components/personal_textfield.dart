@@ -7,6 +7,7 @@ class PersonalTextField extends StatelessWidget {
   final String? Function(String?) validator;
   final TextEditingController controller;
   final IconData icon;
+  final String labelText;
 
   const PersonalTextField({
     Key? key,
@@ -14,6 +15,7 @@ class PersonalTextField extends StatelessWidget {
     required this.validator,
     required this.controller,
     required this.icon,
+    required this.labelText,
   });
 
   @override
@@ -34,6 +36,11 @@ class PersonalTextField extends StatelessWidget {
         ),
         hintText: hintText,
         hintStyle: TextStyle(
+          color: Styles.mainGreyColor,
+          fontWeight: FontWeight.bold,
+        ),
+        labelText: labelText,
+        labelStyle: TextStyle(
           color: Styles.mainGreyColor,
           fontWeight: FontWeight.bold,
         ),
