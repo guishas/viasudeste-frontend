@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:viasudeste/library/utilities/config.dart';
 import 'package:viasudeste/src/models/categoria_model.dart';
+import 'package:viasudeste/src/models/cidade_model.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/models/estado_model.dart';
+import 'package:viasudeste/src/models/update_cliente_model.dart';
+import 'package:viasudeste/src/models/update_vendedor_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
 
 class Api {
@@ -128,4 +131,64 @@ class Api {
       return null;
     }
   }
+
+  Future<List<CidadeModel>?> getCidadesByEstadoId(String id) async {
+    try {
+      String _path = Config.apiEndpoint + 'cidades/estado/$id';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        List<CidadeModel> _list = (_response.data as List)
+            .map((e) => new CidadeModel.fromJson(e))
+            .toList();
+
+        return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ClienteModel?> updateCliente(UpdateClienteModel model) async {
+    try {
+      String _path = Config.apiEndpoint + 'clientes/atualizar/';
+
+      Response _response = await Dio().put(
+        _path,
+        data: model,
+      );
+
+      if (_response.statusCode == 200) {
+        return ClienteModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<VendedorModel?> updateVendedor(UpdateVendedorModel model) async {
+    try {
+      String _path = Config.apiEndpoint + 'vendedores/atualizar/';
+
+      Response _response = await Dio().put(
+        _path,
+        data: model,
+      );
+
+      if (_response.statusCode == 200) {
+        return VendedorModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  
 }

@@ -6,7 +6,6 @@ class PersonalTextField extends StatelessWidget {
   final String hintText;
   final String? Function(String?) validator;
   final TextEditingController controller;
-  final IconData icon;
   final String labelText;
 
   const PersonalTextField({
@@ -14,7 +13,6 @@ class PersonalTextField extends StatelessWidget {
     required this.hintText,
     required this.validator,
     required this.controller,
-    required this.icon,
     required this.labelText,
   });
 
@@ -29,10 +27,6 @@ class PersonalTextField extends StatelessWidget {
           borderSide: BorderSide(
             color: Styles.mainGreyColor,
           ),
-        ),
-        prefixIcon: Icon(
-          icon,
-          color: Styles.mainGreyColor,
         ),
         hintText: hintText,
         hintStyle: TextStyle(
