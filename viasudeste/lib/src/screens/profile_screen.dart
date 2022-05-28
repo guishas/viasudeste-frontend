@@ -288,7 +288,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(top: 10, bottom: 10),
                 child: ElevatedButton(
                   onPressed: () {
-                    _bloc.loginHelper.logoutUser();
+                    _bloc.sharedPreferencesHelper.logoutUser();
                     Navigator.pushReplacementNamed(context, Flows.login);
                   }, 
                   child: Row(

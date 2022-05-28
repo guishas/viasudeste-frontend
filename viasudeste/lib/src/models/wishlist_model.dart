@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-class ProdutoModel {
+class WishlistModel {
   String? produtoId;
   ProdutoVendedor? produtoVendedor;
   ProdutoCategoria? produtoCategoria;
@@ -11,7 +9,7 @@ class ProdutoModel {
   int? produtoAvgScore;
   int? produtoQuantidadeNotas;
 
-  ProdutoModel(
+  WishlistModel(
       {this.produtoId,
       this.produtoVendedor,
       this.produtoCategoria,
@@ -22,7 +20,7 @@ class ProdutoModel {
       this.produtoAvgScore,
       this.produtoQuantidadeNotas});
 
-  ProdutoModel.fromJson(Map<String, dynamic> json) {
+  WishlistModel.fromJson(Map<String, dynamic> json) {
     produtoId = json['produtoId'];
     produtoVendedor = json['produtoVendedor'] != null
         ? new ProdutoVendedor.fromJson(json['produtoVendedor'])
@@ -55,35 +53,6 @@ class ProdutoModel {
     data['produtoQuantidadeNotas'] = this.produtoQuantidadeNotas;
     return data;
   }
-
-  static Map<String, dynamic> toJsonEncode(ProdutoModel produtoModel) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['produtoId'] = produtoModel.produtoId;
-    if (produtoModel.produtoVendedor != null) {
-      data['produtoVendedor'] = produtoModel.produtoVendedor!.toJson();
-    }
-    if (produtoModel.produtoCategoria != null) {
-      data['produtoCategoria'] = produtoModel.produtoCategoria!.toJson();
-    }
-    data['produtoNome'] = produtoModel.produtoNome;
-    data['produtoDescricao'] = produtoModel.produtoDescricao;
-    data['produtoPreco'] = produtoModel.produtoPreco;
-    data['produtoQuantidade'] = produtoModel.produtoQuantidade;
-    data['produtoAvgScore'] = produtoModel.produtoAvgScore;
-    data['produtoQuantidadeNotas'] = produtoModel.produtoQuantidadeNotas;
-    return data;
-  }
-
-  static String encode(List<ProdutoModel> produtos) => json.encode(
-    produtos
-      .map<Map<String, dynamic>>((produto) => ProdutoModel.toJsonEncode(produto))
-      .toList(),
-  );
-
-  static List<ProdutoModel> decode(String produtos) =>
-    (json.decode(produtos) as List<dynamic>)
-        .map<ProdutoModel>((item) => ProdutoModel.fromJson(item))
-        .toList();
 }
 
 class ProdutoVendedor {

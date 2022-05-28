@@ -4,9 +4,11 @@ import 'package:viasudeste/src/models/categoria_model.dart';
 import 'package:viasudeste/src/models/cidade_model.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/models/estado_model.dart';
+import 'package:viasudeste/src/models/produto_model.dart';
 import 'package:viasudeste/src/models/update_cliente_model.dart';
 import 'package:viasudeste/src/models/update_vendedor_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
+import 'package:viasudeste/src/models/wishlist_model.dart';
 
 class Api {
 
@@ -190,5 +192,59 @@ class Api {
     }
   }
 
-  
+  Future<List<ProdutoModel>?> getProdutos() async {
+    try {
+      String _path = Config.apiEndpoint + 'produtos/';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        List<ProdutoModel> _list = (_response.data as List)
+            .map((e) => new ProdutoModel.fromJson(e))
+            .toList();
+
+        return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ProdutoModel?> getProdutoById(String id) async {
+    try {
+      String _path = Config.apiEndpoint + 'produtos/$id';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        return ProdutoModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<WishlistModel>?> getWishlistById(String id) async {
+    try {
+      String _path = Config.apiEndpoint + 'wishlist/$id';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        List<WishlistModel> _list = (_response.data as List)
+            .map((e) => new WishlistModel.fromJson(e))
+            .toList();
+
+        return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }

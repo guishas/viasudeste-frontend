@@ -248,8 +248,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             if (_bloc.rememberMe.value) {
                               _bloc.rememberUser();
-                              _bloc.loginHelper.addBoolToSharedPreferences("isVendedor", false);
-                              _bloc.loginHelper.addStringToSharedPreferences(
+                              _bloc.sharedPreferencesHelper.addBoolToSharedPreferences("isVendedor", false);
+                              _bloc.sharedPreferencesHelper.addStringToSharedPreferences(
                                 "userId", ObjMem.currentUser!.userId ?? '');
                             }
               

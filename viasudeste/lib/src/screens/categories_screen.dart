@@ -46,8 +46,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 )
               )
             : GridView.builder(
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 190,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
                   childAspectRatio: 2 / 2,
                 ),
                 itemCount: _bloc.categorias.value!.length,

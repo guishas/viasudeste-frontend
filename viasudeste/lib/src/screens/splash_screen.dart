@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:viasudeste/library/navigation/flows.dart';
-import 'package:viasudeste/library/utilities/login_helper.dart';
+import 'package:viasudeste/library/utilities/shared_prefs_helper.dart';
 import 'package:viasudeste/library/utilities/obj_mem.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
@@ -17,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  LoginHelper loginHelper = LoginHelper();
+  SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper();
   Api api = Api();
 
   bool moveAnimation = false;
@@ -34,13 +34,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void startApp() async {
-    isUserLogged = await loginHelper.getSharedPreferencesBoolValue("rememberUser");
+    isUserLogged = await sharedPreferencesHelper.getSharedPreferencesBoolValue("rememberUser");
 
     await Future.delayed(Duration(milliseconds: splashScreenDuration), () async {
       if (isUserLogged) {
-        if (await loginHelper.hasValue("isVendedor")) {
-          isVendedor = await loginHelper.getSharedPreferencesBoolValue("isVendedor");
-          id = await loginHelper.getSharedPreferencesStringValue("userId");
+        if (await sharedPreferencesHelper.hasValue("isVendedor")) {
+          isVendedor = await sharedPreferencesHelper.getSharedPreferencesBoolValue("isVendedor");
+          id = await sharedPreferencesHelper.getSharedPreferencesStringValue("userId");
         }
 
         if (isVendedor != null && isVendedor == true) {
