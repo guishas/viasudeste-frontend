@@ -228,9 +228,9 @@ class Api {
     }
   }
 
-  Future<List<WishlistModel>?> getWishlistById(String id) async {
+  Future<List<WishlistModel>?> getWishlistByUserId(String userId) async {
     try {
-      String _path = Config.apiEndpoint + 'wishlist/$id';
+      String _path = Config.apiEndpoint + 'wishlist/$userId';
 
       Response _response = await Dio().get(_path);
 

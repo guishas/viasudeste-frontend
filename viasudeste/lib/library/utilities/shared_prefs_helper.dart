@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:viasudeste/src/models/produto_model.dart';
+import 'package:viasudeste/src/models/cart_produto_model.dart';
 
 class SharedPreferencesHelper {
 
@@ -33,23 +33,23 @@ class SharedPreferencesHelper {
     prefs.setBool('rememberUser', false);
   }
 
-  Future<void> addItemToCart(ProdutoModel produtoModel) async {
+  Future<void> addItemToCart(CartProdutoModel produtoModel) async {
     if (await hasValue("cart")) {
       String cart = await getSharedPreferencesStringValue("cart");
 
-      final List<ProdutoModel> produtos = ProdutoModel.decode(cart);
+      final List<CartProdutoModel> produtos = CartProdutoModel.decode(cart);
 
       produtos.add(produtoModel);
 
-      final String encodedProdutos = ProdutoModel.encode(produtos);
+      final String encodedProdutos = CartProdutoModel.encode(produtos);
 
       addStringToSharedPreferences("cart", encodedProdutos);
     } else {
-      final List<ProdutoModel> produtos = [];
+      final List<CartProdutoModel> produtos = [];
 
       produtos.add(produtoModel);
 
-      final String encodedProdutos = ProdutoModel.encode(produtos);
+      final String encodedProdutos = CartProdutoModel.encode(produtos);
 
       addStringToSharedPreferences("cart", encodedProdutos);
     }
@@ -58,20 +58,20 @@ class SharedPreferencesHelper {
   Future<void> removeItemFromCart(String produtoId) async {
     String cart = await getSharedPreferencesStringValue("cart");
 
-    final List<ProdutoModel> produtos = ProdutoModel.decode(cart);
+    final List<CartProdutoModel> produtos = CartProdutoModel.decode(cart);
 
     produtos.removeWhere((model) => model.produtoId == produtoId);
 
-    final String encodedProdutos = ProdutoModel.encode(produtos);
+    final String encodedProdutos = CartProdutoModel.encode(produtos);
 
     addStringToSharedPreferences("cart", encodedProdutos);
   }
 
-  Future<List<ProdutoModel>?> getCart() async {
+  Future<List<CartProdutoModel>?> getCart() async {
     if (await hasValue("cart")) {
       String cart = await getSharedPreferencesStringValue("cart");
 
-      final List<ProdutoModel> produtos = ProdutoModel.decode(cart);
+      final List<CartProdutoModel> produtos = CartProdutoModel.decode(cart);
 
       return produtos;
     }

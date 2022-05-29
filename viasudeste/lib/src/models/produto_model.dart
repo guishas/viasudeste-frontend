@@ -8,7 +8,7 @@ class ProdutoModel {
   String? produtoDescricao;
   double? produtoPreco;
   int? produtoQuantidade;
-  int? produtoAvgScore;
+  double? produtoAvgScore;
   int? produtoQuantidadeNotas;
 
   ProdutoModel(
@@ -97,8 +97,8 @@ class ProdutoVendedor {
   String? vendedorEndereco;
   String? vendedorCidadeId;
   String? vendedorEstadoId;
-  int? vendedorLatitude;
-  int? vendedorLongitude;
+  double? vendedorLatitude;
+  double? vendedorLongitude;
   bool? vendedorIsVendedor;
   String? createdAt;
 

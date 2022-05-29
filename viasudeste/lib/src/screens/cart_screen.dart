@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/src/blocs/cart_bloc.dart';
-import 'package:viasudeste/src/models/produto_model.dart';
+import 'package:viasudeste/src/models/cart_produto_model.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({ Key? key }) : super(key: key);
@@ -36,7 +36,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
         centerTitle: true,
       ),
-      body: StreamBuilder<List<ProdutoModel>?>(
+      body: StreamBuilder<List<CartProdutoModel>?>(
         stream: _bloc.produtosList.stream,
         builder: (context, snapshot) {
           return Center(

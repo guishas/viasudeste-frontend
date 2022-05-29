@@ -33,9 +33,9 @@ class PersonalDataBloc extends BaseBloc {
   void initStateScreen() {
     user = ObjMem.currentUser;
 
-    checkUser();
-
     getEstados();
+
+    checkUser();
   }
 
   void disposeScreen() {
@@ -63,7 +63,7 @@ class PersonalDataBloc extends BaseBloc {
     }
   }
 
-  void checkUser() {
+  void checkUser() async {
     if (user != null) {
       emailController.text = user!.userEmail!;
       celularController.text = user!.userCelular!;
@@ -73,6 +73,7 @@ class PersonalDataBloc extends BaseBloc {
 
       if (user!.userEstadoId != null) {
         selectedEstado.sink.add(user!.userEstadoId);
+        getCidades(user!.userEstadoId.toString());
       }
 
       if (user!.userCidadeId != null) {

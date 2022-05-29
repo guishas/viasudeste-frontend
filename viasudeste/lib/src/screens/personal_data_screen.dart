@@ -153,6 +153,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             builder: (context, snapshot) {
                               return snapshot.hasData
                                 ? DropdownButtonFormField(
+                                    menuMaxHeight: MediaQuery.of(context).size.height * 0.5,
                                     items: _bloc.estadosList.value!
                                       .map<DropdownMenuItem<String>>(
                                         (EstadoModel model) {
@@ -165,6 +166,9 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                                     value: _bloc.selectedEstado.value,
                                     onChanged: (String? value) {
                                       _bloc.selectedEstado.sink.add(value);
+                                      _bloc.cidadesList.sink.add([]);
+                                      _bloc.selectedCidade.sink.add(null);
+                                      _bloc.getCidades(_bloc.selectedEstado.value.toString());
                                       FocusScope.of(context).requestFocus(new FocusNode());
                                     },
                                     style: TextStyle(
@@ -212,18 +216,21 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             builder: (context, snapshot) {
                               return snapshot.hasData
                                 ? DropdownButtonFormField(
-                                    items: _bloc.cidadesList.value!
-                                      .map<DropdownMenuItem<String>>(
-                                        (CidadeModel model) {
-                                          return DropdownMenuItem<String>(
-                                            value: model.cidadeId,
-                                            child: Text(model.nome.toString()),
-                                          );
-                                        }
-                                      ).toList(),
+                                    menuMaxHeight: MediaQuery.of(context).size.height * 0.5,
+                                    items: _bloc.cidadesList.value!.isNotEmpty
+                                      ? _bloc.cidadesList.value!
+                                          .map<DropdownMenuItem<String>>(
+                                            (CidadeModel model) {
+                                              return DropdownMenuItem<String>(
+                                                value: model.cidadeId,
+                                                child: Text(model.nome.toString()),
+                                              );
+                                            }
+                                          ).toList()
+                                      : null,
                                     value: _bloc.selectedCidade.value,
                                     onChanged: (String? value) {
-                                      _bloc.selectedEstado.sink.add(value);
+                                      _bloc.selectedCidade.sink.add(value);
                                       FocusScope.of(context).requestFocus(new FocusNode());
                                     },
                                     style: TextStyle(
