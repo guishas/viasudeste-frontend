@@ -2,4 +2,8 @@
 
 ### Developed in: Flutter (Dart)
 
-### Developed by: guishoww
+### Developed by: Guilherme Lunetta
+
+## Backend github link: https://github.com/guishas/viasudeste-backend/
+
+## Swagger API: https://powerful-shelf-46576.herokuapp.com/api/
