@@ -18,6 +18,4 @@ class Utils {
       return true;
     }
   }
-
-  
 }

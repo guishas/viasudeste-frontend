@@ -10,6 +10,7 @@ class CartProdutoModel {
   int? produtoQuantidade;
   double? produtoAvgScore;
   int? produtoQuantidadeNotas;
+  String? produtoImagem;
 
   CartProdutoModel(
       {this.produtoId,
@@ -20,7 +21,8 @@ class CartProdutoModel {
       this.produtoPreco,
       this.produtoQuantidade,
       this.produtoAvgScore,
-      this.produtoQuantidadeNotas});
+      this.produtoQuantidadeNotas,
+      this.produtoImagem});
 
   CartProdutoModel.fromJson(Map<String, dynamic> json) {
     produtoId = json['produtoId'];
@@ -34,8 +36,9 @@ class CartProdutoModel {
     produtoDescricao = json['produtoDescricao'];
     produtoPreco = json['produtoPreco'];
     produtoQuantidade = json['produtoQuantidade'];
-    produtoAvgScore = (json['produtoAvgScore'] as int).toDouble();
+    produtoAvgScore = json['produtoAvgScore'];
     produtoQuantidadeNotas = json['produtoQuantidadeNotas'];
+    produtoImagem = json['produtoImagem'];
   }
 
   Map<String, dynamic> toJson() {
@@ -53,6 +56,7 @@ class CartProdutoModel {
     data['produtoQuantidade'] = this.produtoQuantidade;
     data['produtoAvgScore'] = this.produtoAvgScore;
     data['produtoQuantidadeNotas'] = this.produtoQuantidadeNotas;
+    data['produtoImagem'] = this.produtoImagem;
     return data;
   }
 
@@ -71,6 +75,7 @@ class CartProdutoModel {
     data['produtoQuantidade'] = produtoModel.produtoQuantidade;
     data['produtoAvgScore'] = produtoModel.produtoAvgScore;
     data['produtoQuantidadeNotas'] = produtoModel.produtoQuantidadeNotas;
+    data['produtoImagem'] = produtoModel.produtoImagem;
     return data;
   }
 

@@ -55,16 +55,18 @@ class SharedPreferencesHelper {
     }
   }
 
-  Future<void> removeItemFromCart(String produtoId) async {
+  Future<List<CartProdutoModel>?> removeItemFromCart(String produtoId) async {
     String cart = await getSharedPreferencesStringValue("cart");
 
     final List<CartProdutoModel> produtos = CartProdutoModel.decode(cart);
 
-    produtos.removeWhere((model) => model.produtoId == produtoId);
+    produtos.removeWhere((model) => model.produtoId.toString() == produtoId);
 
     final String encodedProdutos = CartProdutoModel.encode(produtos);
 
     addStringToSharedPreferences("cart", encodedProdutos);
+
+    return produtos;
   }
 
   Future<List<CartProdutoModel>?> getCart() async {
@@ -77,5 +79,10 @@ class SharedPreferencesHelper {
     }
 
     return [];
+  }
+
+  Future<void> emptyCart() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("cart");
   }
 }
