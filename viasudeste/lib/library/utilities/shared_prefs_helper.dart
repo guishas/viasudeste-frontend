@@ -33,17 +33,25 @@ class SharedPreferencesHelper {
     prefs.setBool('rememberUser', false);
   }
 
-  Future<void> addItemToCart(CartProdutoModel produtoModel) async {
+  Future<bool> addItemToCart(CartProdutoModel produtoModel) async {
     if (await hasValue("cart")) {
       String cart = await getSharedPreferencesStringValue("cart");
 
       final List<CartProdutoModel> produtos = CartProdutoModel.decode(cart);
+
+      for (CartProdutoModel model in produtos) {
+        if (model.produtoId.toString() == produtoModel.produtoId.toString()) {
+          return false;
+        }
+      }
 
       produtos.add(produtoModel);
 
       final String encodedProdutos = CartProdutoModel.encode(produtos);
 
       addStringToSharedPreferences("cart", encodedProdutos);
+
+      return true;
     } else {
       final List<CartProdutoModel> produtos = [];
 
@@ -52,6 +60,8 @@ class SharedPreferencesHelper {
       final String encodedProdutos = CartProdutoModel.encode(produtos);
 
       addStringToSharedPreferences("cart", encodedProdutos);
+
+      return true;
     }
   }
 

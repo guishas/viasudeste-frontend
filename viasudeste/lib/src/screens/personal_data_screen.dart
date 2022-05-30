@@ -57,7 +57,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                             backgroundColor: Styles.mainBlackColor,
                             child: CircleAvatar(
                               child: Text(
-                                _bloc.user!.userNome!.substring(0, 1),
+                                _bloc.user!.userNome == null ? '' : _bloc.user!.userNome!.substring(0, 1),
                                 style: TextStyle(
                                   fontSize: 24,
                                   color: Styles.mainBlackColor,
@@ -72,6 +72,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                           child: PersonalTextField(
                             controller: _bloc.emailController,
+                            formatters: [],
                             hintText: 'E-mail',
                             labelText: 'E-mail',
                             validator: (String? text) {
@@ -90,7 +91,8 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                           child: PersonalTextField(
                             controller: _bloc.celularController,
-                            hintText: 'Celular (##) #####-####',
+                            formatters: [_bloc.maskCelular],
+                            hintText: 'Celular',
                             labelText: 'Celular',
                             validator: (String? text) {
                               if (text != null && text.length > 14) {
@@ -105,6 +107,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                           child: PersonalTextField(
                             controller: _bloc.cpfController,
+                            formatters: [_bloc.maskCPF],
                             hintText: 'CPF',
                             labelText: 'CPF',
                             validator: (String? text) {
@@ -120,6 +123,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                           child: PersonalTextField(
                             controller: _bloc.cepController,
+                            formatters: [_bloc.maskCEP],
                             hintText: 'CEP',
                             labelText: 'CEP',
                             validator: (String? text) {
@@ -135,6 +139,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                           padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                           child: PersonalTextField(
                             controller: _bloc.addressController,
+                            formatters: [],
                             hintText: 'Endereço',
                             labelText: 'Endereço',
                             validator: (String? text) {

@@ -64,7 +64,7 @@ class CartBloc extends BaseBloc {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Tem certeza que deseja remover esse produto da sua lista de desejos?',
+              'Tem certeza que deseja remover esse produto do seu carrinho?',
               style: TextStyle(
                 fontFamily: 'Cutive Mono',
                 fontSize: 18,

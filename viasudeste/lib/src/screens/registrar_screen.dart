@@ -75,6 +75,21 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                       Padding(
                         padding: EdgeInsets.only(top: 20, left: 10, right: 10),
                         child: MyFormTextField(
+                          controller: _bloc.nomeController,
+                          hintText: 'Nome completo',
+                          icon: Icons.person,
+                          validator: (String? text) {
+                            if (text != null && text.length > 0) {
+                              return null;
+                            } else {
+                              return 'Nome inválido.';
+                            }
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: MyFormTextField(
                           controller: _bloc.emailController,
                           hintText: 'E-mail',
                           icon: Icons.mail_outline,
@@ -234,7 +249,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             }
         
                             if (_bloc.selectedOption.value == "Cliente") {
-                              ClienteModel? model = await _bloc.createClienteAccount(_formState, _bloc.emailController.text, _bloc.passwordController.text);
+                              ClienteModel? model = await _bloc.createClienteAccount(_formState, _bloc.emailController.text, _bloc.nomeController.text, _bloc.passwordController.text);
         
                               if (model != null) {
                                 showDialog(
@@ -246,7 +261,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                                 );
                               } 
                             } else {
-                              VendedorModel? model = await _bloc.createVendedorAccount(_formState, _bloc.emailController.text, _bloc.passwordController.text);
+                              VendedorModel? model = await _bloc.createVendedorAccount(_formState, _bloc.emailController.text, _bloc.nomeController.text, _bloc.passwordController.text);
         
                               if (model != null) {
                                 showDialog(

@@ -20,6 +20,7 @@ class RegistrarBloc extends BaseBloc {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController repeatPasswordController = TextEditingController();
+  TextEditingController nomeController = TextEditingController();
 
   void initStateScreen() {
 
@@ -32,12 +33,13 @@ class RegistrarBloc extends BaseBloc {
     disposeBaseBloc();
   }
 
-  Future<ClienteModel?> createClienteAccount(GlobalKey<FormState> formState, String email, String password) async {
+  Future<ClienteModel?> createClienteAccount(GlobalKey<FormState> formState, String email, String nome, String password) async {
     if (formState.currentState!.validate() && showError.value != true) {
       isLoading.sink.add(true);
 
       ClienteModel model = ClienteModel();
       model.clienteEmail = email;
+      model.clienteNome = nome;
       model.clienteSenha = password;
       model.clienteIsVendedor = false;
 
@@ -57,12 +59,13 @@ class RegistrarBloc extends BaseBloc {
     }
   }
 
-  Future<VendedorModel?> createVendedorAccount(GlobalKey<FormState> formState, String email, String password) async {
+  Future<VendedorModel?> createVendedorAccount(GlobalKey<FormState> formState, String email, String nome, String password) async {
     if (formState.currentState!.validate() && showError.value != true) {
       isLoading.sink.add(true);
 
       VendedorModel model = VendedorModel();
       model.vendedorEmail = email;
+      model.vendedorNome = nome;
       model.vendedorSenha = password;
       model.vendedorIsVendedor = true;
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 
 class PersonalTextField extends StatelessWidget {
@@ -7,6 +8,7 @@ class PersonalTextField extends StatelessWidget {
   final String? Function(String?) validator;
   final TextEditingController controller;
   final String labelText;
+  final List<TextInputFormatter> formatters;
 
   const PersonalTextField({
     Key? key,
@@ -14,6 +16,7 @@ class PersonalTextField extends StatelessWidget {
     required this.validator,
     required this.controller,
     required this.labelText,
+    required this.formatters,
   });
 
   @override
@@ -21,6 +24,7 @@ class PersonalTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.emailAddress,
+      inputFormatters: formatters,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(25)),

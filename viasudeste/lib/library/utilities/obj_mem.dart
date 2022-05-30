@@ -4,4 +4,6 @@ class ObjMem {
   
   static UserModel? currentUser;
   static bool? isVendedor;
+
+  static dynamic objetoHelp1;
 }

@@ -6,6 +6,7 @@ class Utils {
   void showSnackBar(BuildContext context, Widget widget) {
     final SnackBar snackbar = SnackBar(
       content: widget,
+      duration: Duration(seconds: 2),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackbar);

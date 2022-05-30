@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:viasudeste/library/utilities/base_bloc.dart';
 import 'package:viasudeste/library/utilities/obj_mem.dart';
@@ -29,6 +30,21 @@ class PersonalDataBloc extends BaseBloc {
   final TextEditingController cpfController = TextEditingController(text: null);
   final TextEditingController cepController = TextEditingController(text: null);
   final TextEditingController addressController = TextEditingController(text: null);
+
+  var maskCelular = MaskTextInputFormatter(
+    mask: "(##) #####-####",
+    filter: {"#": RegExp(r'[0-9]')},
+  );
+
+  var maskCPF = MaskTextInputFormatter(
+    mask: "###.###.###-##",
+    filter: {"#": RegExp(r'[0-9]')},
+  );
+
+  var maskCEP = MaskTextInputFormatter(
+    mask: "#####-###",
+    filter: {"#": RegExp(r'[0-9]')},
+  );
 
   void initStateScreen() {
     user = ObjMem.currentUser;
@@ -66,10 +82,10 @@ class PersonalDataBloc extends BaseBloc {
   void checkUser() async {
     if (user != null) {
       emailController.text = user!.userEmail!;
-      celularController.text = user!.userCelular!;
-      cpfController.text = user!.userCPF!;
-      cepController.text = user!.userCEP!;
-      addressController.text = user!.userEndereco!;
+      celularController.text = user!.userCelular ?? '';
+      cpfController.text = user!.userCPF ?? '';
+      cepController.text = user!.userCEP ?? '';
+      addressController.text = user!.userEndereco ?? '';
 
       if (user!.userEstadoId != null) {
         selectedEstado.sink.add(user!.userEstadoId);

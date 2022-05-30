@@ -1,4 +1,5 @@
 class WishlistModel {
+  String? wishlistId;
   String? produtoId;
   ProdutoVendedor? produtoVendedor;
   ProdutoCategoria? produtoCategoria;
@@ -8,9 +9,11 @@ class WishlistModel {
   int? produtoQuantidade;
   double? produtoAvgScore;
   int? produtoQuantidadeNotas;
+  String? produtoImagem;
 
   WishlistModel(
-      {this.produtoId,
+      {this.wishlistId,
+      this.produtoId,
       this.produtoVendedor,
       this.produtoCategoria,
       this.produtoNome,
@@ -21,6 +24,7 @@ class WishlistModel {
       this.produtoQuantidadeNotas});
 
   WishlistModel.fromJson(Map<String, dynamic> json) {
+    wishlistId = json['wishlistId'];
     produtoId = json['produtoId'];
     produtoVendedor = json['produtoVendedor'] != null
         ? new ProdutoVendedor.fromJson(json['produtoVendedor'])
@@ -34,10 +38,12 @@ class WishlistModel {
     produtoQuantidade = json['produtoQuantidade'];
     produtoAvgScore = json['produtoAvgScore'];
     produtoQuantidadeNotas = json['produtoQuantidadeNotas'];
+    produtoImagem = json['produtoImagem'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['wishlistId'] = this.wishlistId;
     data['produtoId'] = this.produtoId;
     if (this.produtoVendedor != null) {
       data['produtoVendedor'] = this.produtoVendedor!.toJson();
@@ -51,6 +57,7 @@ class WishlistModel {
     data['produtoQuantidade'] = this.produtoQuantidade;
     data['produtoAvgScore'] = this.produtoAvgScore;
     data['produtoQuantidadeNotas'] = this.produtoQuantidadeNotas;
+    data['produtoImagem'] = this.produtoImagem;
     return data;
   }
 }

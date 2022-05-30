@@ -4,7 +4,9 @@ import 'package:viasudeste/src/models/categoria_model.dart';
 import 'package:viasudeste/src/models/cidade_model.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/models/estado_model.dart';
+import 'package:viasudeste/src/models/my_reviews_model.dart';
 import 'package:viasudeste/src/models/produto_model.dart';
+import 'package:viasudeste/src/models/review_model.dart';
 import 'package:viasudeste/src/models/update_cliente_model.dart';
 import 'package:viasudeste/src/models/update_vendedor_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
@@ -33,16 +35,20 @@ class Api {
   }
 
   Future<ClienteModel?> createClienteAccount(ClienteModel model) async {
-    String _path = Config.apiEndpoint + 'clientes/adicionar/';
+    try {
+      String _path = Config.apiEndpoint + 'clientes/adicionar/';
 
-    Response _response = await Dio().post(
-      _path,
-      data: model,
-    );
+      Response _response = await Dio().post(
+        _path,
+        data: model,
+      );
 
-    if (_response.data["statusCode"] == '200') {
-      return ClienteModel.fromJson(_response.data["data"]);
-    } else {
+      if (_response.data["statusCode"] == '200') {
+        return ClienteModel.fromJson(_response.data["data"]);
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
@@ -237,6 +243,84 @@ class Api {
       if (_response.statusCode == 200) {
         List<WishlistModel> _list = (_response.data as List)
             .map((e) => new WishlistModel.fromJson(e))
+            .toList();
+
+        return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<bool> deleteWishlistById(String wishlistId) async {
+    try {
+      String _path = Config.apiEndpoint + 'wishlist/deletar/$wishlistId';
+
+      Response _response = await Dio().delete(_path);
+
+      if (_response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> addWishlist(String clienteId, String produtoId) async {
+    try {
+      String _path = Config.apiEndpoint + 'wishlist/adicionar/';
+
+      Response _response = await Dio().post(
+        _path,
+        data: {
+          "clienteId": clienteId,
+          "produtoId": produtoId,
+        }
+      );
+
+      if (_response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<List<ReviewModel>?> getReviewsByProductId(String produtoId) async {
+    try {
+      String _path = Config.apiEndpoint + 'reviews/$produtoId';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        List<ReviewModel> _list = (_response.data as List)
+            .map((e) => new ReviewModel.fromJson(e))
+            .toList();
+
+        return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<MyReviewsModel>?> getReviewsByClienteId(String clienteId) async {
+    try {
+      String _path = Config.apiEndpoint + 'reviews/clientes/$clienteId';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        List<MyReviewsModel> _list = (_response.data as List)
+            .map((e) => new MyReviewsModel.fromJson(e))
             .toList();
 
         return _list;

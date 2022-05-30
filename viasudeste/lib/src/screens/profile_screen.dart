@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 5),
                     child: Text(
-                      ObjMem.currentUser!.userCelular.toString(),
+                      ObjMem.currentUser!.userCelular == null ? 'Faltando informação' : ObjMem.currentUser!.userCelular.toString(),
                       style: TextStyle(
                         fontFamily: 'Calibri',
                         fontSize: 16,
@@ -247,7 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(top: 10),
                 child: ElevatedButton(
                   onPressed: () {
-        
+                    Navigator.pushNamed(context, Flows.avaliacoes);
                   }, 
                   child: Row(
                     children: [
