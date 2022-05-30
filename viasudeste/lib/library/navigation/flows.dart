@@ -5,4 +5,6 @@ class Flows {
   static const personal = 'PersonalDataScreen';
   static const produto = 'ProdutoScreen';
   static const avaliacoes = 'MyReviewsScreen';
+  static const finalizar = 'FinalizarCompraScreen';
+  static const pagamento = 'PagarScreen';
 }

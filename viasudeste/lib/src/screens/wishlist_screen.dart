@@ -164,12 +164,15 @@ class _WishlistScreenState extends State<WishlistScreen> {
                   ],
                 )
               : Center(
-                  child: Text(
-                    'Você não possui itens na sua lista de desejos!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Text(
+                      'Você não possui itens na sua lista de desejos!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20
+                      ),
                     ),
                   ),
                 )

@@ -3,7 +3,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:viasudeste/library/utilities/base_bloc.dart';
 import 'package:viasudeste/library/utilities/shared_prefs_helper.dart';
 import 'package:viasudeste/library/utilities/utils.dart';
-import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/repositories/api.dart';
 
 class LoginBloc extends BaseBloc {

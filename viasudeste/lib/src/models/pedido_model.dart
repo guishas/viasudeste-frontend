@@ -11,6 +11,7 @@ class PedidoModel {
   String? pedidoDataTransportadora;
   String? pedidoDataPrevista;
   String? pedidoDataEntregue;
+  bool? pedidoAvaliado;
 
   PedidoModel(
       {this.pedidoId,
@@ -24,7 +25,8 @@ class PedidoModel {
       this.pedidoDataPagamento,
       this.pedidoDataTransportadora,
       this.pedidoDataPrevista,
-      this.pedidoDataEntregue});
+      this.pedidoDataEntregue,
+      this.pedidoAvaliado});
 
   PedidoModel.fromJson(Map<String, dynamic> json) {
     pedidoId = json['pedidoId'];
@@ -39,6 +41,7 @@ class PedidoModel {
     pedidoDataTransportadora = json['pedidoDataTransportadora'];
     pedidoDataPrevista = json['pedidoDataPrevista'];
     pedidoDataEntregue = json['pedidoDataEntregue'];
+    pedidoAvaliado = json['pedidoAvaliado'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +58,7 @@ class PedidoModel {
     data['pedidoDataTransportadora'] = this.pedidoDataTransportadora;
     data['pedidoDataPrevista'] = this.pedidoDataPrevista;
     data['pedidoDataEntregue'] = this.pedidoDataEntregue;
+    data['pedidoAvaliado'] = this.pedidoAvaliado;
     return data;
   }
 }

@@ -155,48 +155,102 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 10),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            var ret = await showDialog(
-                              barrierDismissible: false,
-                              context: context, 
-                              builder: (BuildContext dialogContext) {
-                                return _bloc.getComfirmEmptyCart(context, dialogContext);
-                              }
-                            );
-                            
-                            if ((ret as bool) == true) {
-                              _bloc.emptyCart();
-                            }
-                          }, 
-                          child: Text(
-                            'Esvaziar Carrinho',
-                            style: TextStyle(
-                              fontFamily: 'Cutive Mono',
-                              fontWeight: FontWeight.bold,
-                              color: Styles.mainBlackColor,
-                              fontSize: 16,
+                        padding: EdgeInsets.only(top: 10),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(
+                                color: Styles.mainLightGreyColor,
+                              ),
                             ),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Styles.mainLightPinkColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25))
-                            ),
-                            fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 45),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 5),
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    ObjMem.objetoHelp1 = _bloc.produtosList.value;
+
+                                    var ret = await Navigator.pushNamed(context, Flows.finalizar);
+
+                                    if (ret != null) {
+                                      ObjMem.objetoHelp1 = null;
+                                      
+                                      if (ret == true) {
+                                        _bloc.produtosList.sink.add([]);
+                                      }
+                                    }
+                                  }, 
+                                  child: Text(
+                                    'Finalizar Compra',
+                                    style: TextStyle(
+                                      fontFamily: 'Cutive Mono',
+                                      fontWeight: FontWeight.bold,
+                                      color: Styles.mainBlackColor,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Styles.mainPinkColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(25))
+                                    ),
+                                    fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 45),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 5, bottom: 10),
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    var ret = await showDialog(
+                                      barrierDismissible: false,
+                                      context: context, 
+                                      builder: (BuildContext dialogContext) {
+                                        return _bloc.getComfirmEmptyCart(context, dialogContext);
+                                      }
+                                    );
+                                    
+                                    if ((ret as bool) == true) {
+                                      _bloc.emptyCart();
+                                    }
+                                  }, 
+                                  child: Text(
+                                    'Esvaziar Carrinho',
+                                    style: TextStyle(
+                                      fontFamily: 'Cutive Mono',
+                                      fontWeight: FontWeight.bold,
+                                      color: Styles.mainBlackColor,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Styles.mainLightPinkColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(25))
+                                    ),
+                                    fixedSize: Size(MediaQuery.of(context).size.width * 0.9, 45),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ],
                   )
                 : Center(
-                    child: Text(
-                      'Seu carrinho está vazio!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Text(
+                        'Seu carrinho está vazio!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20
+                        ),
                       ),
                     ),
                   )

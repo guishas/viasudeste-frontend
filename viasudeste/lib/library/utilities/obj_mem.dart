@@ -6,4 +6,5 @@ class ObjMem {
   static bool? isVendedor;
 
   static dynamic objetoHelp1;
+  static dynamic objetoHelp2;
 }
