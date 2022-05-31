@@ -6,5 +6,4 @@ class Flows {
   static const produto = 'ProdutoScreen';
   static const avaliacoes = 'MyReviewsScreen';
   static const finalizar = 'FinalizarCompraScreen';
-  static const pagamento = 'PagarScreen';
 }

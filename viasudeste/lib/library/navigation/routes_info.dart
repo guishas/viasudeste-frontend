@@ -3,7 +3,6 @@ import 'package:viasudeste/src/screens/finalizar_compra_screen.dart';
 import 'package:viasudeste/src/screens/home_screen.dart';
 import 'package:viasudeste/src/screens/login_screen.dart';
 import 'package:viasudeste/src/screens/my_reviews_screen.dart';
-import 'package:viasudeste/src/screens/pagar_screen.dart';
 import 'package:viasudeste/src/screens/personal_data_screen.dart';
 import 'package:viasudeste/src/screens/produto_screen.dart';
 import 'package:viasudeste/src/screens/registrar_screen.dart';
@@ -46,11 +45,6 @@ class RoutesInfo {
       case Flows.finalizar:
         return MaterialPageRoute(
           builder: (context) => FinalizarCompraScreen(),
-          settings: settings,
-        );
-      case Flows.pagamento:
-        return MaterialPageRoute(
-          builder: (context) => PagarScreen(),
           settings: settings,
         );
     }

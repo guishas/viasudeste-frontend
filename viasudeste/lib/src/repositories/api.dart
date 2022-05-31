@@ -3,8 +3,12 @@ import 'package:viasudeste/library/utilities/config.dart';
 import 'package:viasudeste/src/models/categoria_model.dart';
 import 'package:viasudeste/src/models/cidade_model.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
+import 'package:viasudeste/src/models/create_pagamento_model.dart';
+import 'package:viasudeste/src/models/create_pedido_model.dart';
 import 'package:viasudeste/src/models/estado_model.dart';
 import 'package:viasudeste/src/models/my_reviews_model.dart';
+import 'package:viasudeste/src/models/pagamento_model.dart';
+import 'package:viasudeste/src/models/pedido_model.dart';
 import 'package:viasudeste/src/models/produto_model.dart';
 import 'package:viasudeste/src/models/review_model.dart';
 import 'package:viasudeste/src/models/update_cliente_model.dart';
@@ -324,6 +328,44 @@ class Api {
             .toList();
 
         return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<String?> adicionarPedido(CreatePedidoModel pedidoModel) async {
+    try {
+      String _path = Config.apiEndpoint + 'pedidos/adicionar/';
+
+      Response _response = await Dio().post(
+        _path,
+        data: pedidoModel
+      );
+
+      if (_response.statusCode == 200) {
+        return _response.data["pedidoId"];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<String?> adicionarPagamento(CreatePagamentoModel createPagamentoModel) async {
+    try {
+      String _path = Config.apiEndpoint + 'pagamentos/adicionar/';
+
+      Response _response = await Dio().post(
+        _path,
+        data: createPagamentoModel
+      );
+
+      if (_response.statusCode == 200) {
+        return _response.data["pagamentoId"];
       } else {
         return null;
       }
