@@ -445,4 +445,20 @@ class Api {
       return null;
     }
   }
+
+  Future<PagamentoModel?> getPagamentoByPedidoId(String? pedidoId) async {
+    try {
+      String _path = Config.apiEndpoint + 'pagamentos/pedido/$pedidoId';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        return PagamentoModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }

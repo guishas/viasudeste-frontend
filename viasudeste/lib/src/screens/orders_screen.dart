@@ -183,7 +183,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                               fontFamily: 'Calibri',
                                               color: _bloc.pedidosList.value![index].pedidoStatus.toString() == "Em andamento"
                                               ? Colors.orange.shade400
-                                              : Colors.green,
+                                              : _bloc.pedidosList.value![index].pedidoStatus.toString() == "A caminho"
+                                                ? Colors.blue
+                                                : Colors.green,
                                               fontSize: 16,
                                             ),
                                             overflow: TextOverflow.ellipsis,
