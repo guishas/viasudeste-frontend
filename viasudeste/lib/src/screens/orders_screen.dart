@@ -43,167 +43,215 @@ class _OrdersScreenState extends State<OrdersScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: snapshot.hasData
-              ? SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
+              ? _bloc.pedidosList.value!.length == 0
+                ? Center(
+                    child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _bloc.pedidosList.value!.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () async {
-                              ObjMem.objetoHelp1 = _bloc.pedidosList.value![index];
-
-                              var ret = await Navigator.pushNamed(context, Flows.pedido);
-
-                              if (ret != null) {
-                                ObjMem.objetoHelp1 = null;
-                              }
-                            },
-                            child: Container(
-                              child: Card(
-                                elevation: 8,
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 10, right: 10, left: 10),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            _bloc.pedidosList.value![index].pedidoProduto!.produtoNome.toString(),
-                                            style: TextStyle(
-                                              fontFamily: 'Calibri',
-                                              color: Styles.mainGreyColor,
-                                              fontSize: 18,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 10, right: 10),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            _bloc.getDateByISOString(_bloc.pedidosList.value![index].pedidoDataCompra.toString()),
-                                            style: TextStyle(
-                                              fontFamily: 'Calibri',
-                                              color: Styles.mainLightGreyColor,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 5, right: 10, left: 10),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "ID Pedido: ",
-                                            style: TextStyle(
-                                              fontFamily: 'Calibri',
-                                              color: Styles.mainBlackColor,
-                                              fontWeight: FontWeight.bold
-                                            ),
-                                          ),
-                                          Text(
-                                            _bloc.pedidosList.value![index].pedidoId.toString(),
-                                            style: TextStyle(
-                                              fontFamily: 'Calibri',
-                                              color: Styles.mainLightGreyColor,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 5, right: 10, left: 10),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Quantidade: ",
-                                                style: TextStyle(
-                                                  fontFamily: 'Calibri',
-                                                  color: Styles.mainBlackColor,
-                                                  fontWeight: FontWeight.bold
-                                                ),
-                                              ),
-                                              Text(
-                                                _bloc.pedidosList.value![index].pedidoQuantidadeProduto.toString(),
-                                                style: TextStyle(
-                                                  fontFamily: 'Calibri',
-                                                  color: Styles.mainLightGreyColor,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              )
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Preço Total: ",
-                                                style: TextStyle(
-                                                  fontFamily: 'Calibri',
-                                                  color: Styles.mainBlackColor,
-                                                  fontWeight: FontWeight.bold
-                                                ),
-                                              ),
-                                              Text(
-                                                _bloc.pedidosList.value![index].pedidoProduto!.produtoPreco.toString().split(".")[1].length == 1
-                                                ? "R\$ " + _bloc.pedidosList.value![index].pedidoProduto!.produtoPreco.toString().replaceAll('.', ",") + "0"
-                                                : "R\$ " + _bloc.pedidosList.value![index].pedidoProduto!.produtoPreco.toString().replaceAll('.', ","),
-                                                style: TextStyle(
-                                                  fontFamily: 'Calibri',
-                                                  color: Styles.mainLightGreyColor,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 30, right: 10, left: 10, bottom: 10),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            _bloc.pedidosList.value![index].pedidoStatus.toString(),
-                                            style: TextStyle(
-                                              fontFamily: 'Calibri',
-                                              color: _bloc.pedidosList.value![index].pedidoStatus.toString() == "Em andamento"
-                                              ? Colors.orange.shade400
-                                              : _bloc.pedidosList.value![index].pedidoStatus.toString() == "A caminho"
-                                                ? Colors.blue
-                                                : Colors.green,
-                                              fontSize: 16,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ),
-                            ),
-                          );
-                        },
+                      child: Text(
+                        "Você ainda não possui nenhum pedido!",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
                     ),
-                  ],
-                ),
-              )
+                  )
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _bloc.pedidosList.value!.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  ObjMem.objetoHelp1 = _bloc.pedidosList.value![index];
+
+                                  var ret = await Navigator.pushNamed(context, Flows.pedido);
+
+                                  if (ret != null) {
+                                    ObjMem.objetoHelp1 = null;
+                                  }
+                                },
+                                child: Container(
+                                  child: Card(
+                                    elevation: 8,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10, right: 10, left: 10),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _bloc.pedidosList.value![index].pedidoProduto!.produtoNome.toString(),
+                                                style: TextStyle(
+                                                  fontFamily: 'Calibri',
+                                                  color: Styles.mainGreyColor,
+                                                  fontSize: 18,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10, right: 10),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                _bloc.getDateByISOString(_bloc.pedidosList.value![index].pedidoDataCompra.toString()),
+                                                style: TextStyle(
+                                                  fontFamily: 'Calibri',
+                                                  color: Styles.mainLightGreyColor,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 5, right: 10, left: 10),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "ID Pedido: ",
+                                                style: TextStyle(
+                                                  fontFamily: 'Calibri',
+                                                  color: Styles.mainBlackColor,
+                                                  fontWeight: FontWeight.bold
+                                                ),
+                                              ),
+                                              Text(
+                                                _bloc.pedidosList.value![index].pedidoId.toString(),
+                                                style: TextStyle(
+                                                  fontFamily: 'Calibri',
+                                                  color: Styles.mainLightGreyColor,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 5, right: 10, left: 10),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "Quantidade: ",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Calibri',
+                                                      color: Styles.mainBlackColor,
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    _bloc.pedidosList.value![index].pedidoQuantidadeProduto.toString(),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Calibri',
+                                                      color: Styles.mainLightGreyColor,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "Preço Total: ",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Calibri',
+                                                      color: Styles.mainBlackColor,
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    _bloc.pedidosList.value![index].pedidoProduto!.produtoPreco.toString().split(".")[1].length == 1
+                                                    ? "R\$ " + _bloc.pedidosList.value![index].pedidoProduto!.produtoPreco.toString().replaceAll('.', ",") + "0"
+                                                    : "R\$ " + _bloc.pedidosList.value![index].pedidoProduto!.produtoPreco.toString().replaceAll('.', ","),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Calibri',
+                                                      color: Styles.mainLightGreyColor,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 30, right: 10, left: 10, bottom: 10),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Visibility(
+                                                visible: _bloc.pedidosList.value![index].pedidoStatus.toString() == "Entregue",
+                                                child: ElevatedButton(
+                                                  onPressed: _bloc.pedidosList.value![index].pedidoAvaliado == true
+                                                  ? null
+                                                  : () async {
+                                                    ObjMem.objetoHelp2 = _bloc.pedidosList.value![index];
+                                              
+                                                    var ret = await Navigator.pushNamed(context, Flows.avaliar);
+                                              
+                                                    if (ret != null) {
+                                                      ObjMem.objetoHelp2 = null;
+                                                      _bloc.getPedidos();
+                                                    }
+                                                  },
+                                                  child: Opacity(
+                                                    opacity: _bloc.pedidosList.value![index].pedidoAvaliado == true
+                                                    ? 0.5
+                                                    : 1,
+                                                    child: Text(
+                                                      _bloc.pedidosList.value![index].pedidoAvaliado == true
+                                                      ? "Avaliado"
+                                                      : "Avaliar",
+                                                      style: TextStyle(
+                                                        fontFamily: 'Calibri',
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Styles.mainBlackColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  style: ElevatedButton.styleFrom(
+                                                    primary: Styles.mainLightPinkColor
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                _bloc.pedidosList.value![index].pedidoStatus.toString(),
+                                                style: TextStyle(
+                                                  fontFamily: 'Calibri',
+                                                  color: _bloc.pedidosList.value![index].pedidoStatus.toString() == "Em andamento"
+                                                  ? Colors.orange.shade400
+                                                  : _bloc.pedidosList.value![index].pedidoStatus.toString() == "A caminho"
+                                                    ? Colors.blue
+                                                    : Colors.green,
+                                                  fontSize: 16,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
               : Center(
                   child: CircularProgressIndicator(
                     color: Styles.mainPinkColor,

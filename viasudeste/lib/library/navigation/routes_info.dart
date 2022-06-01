@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:viasudeste/src/screens/all_reviews_screen.dart';
+import 'package:viasudeste/src/screens/avaliar_screen.dart';
 import 'package:viasudeste/src/screens/finalizar_compra_screen.dart';
 import 'package:viasudeste/src/screens/home_screen.dart';
 import 'package:viasudeste/src/screens/login_screen.dart';
@@ -63,6 +65,16 @@ class RoutesInfo {
       case Flows.produtos:
         return MaterialPageRoute(
           builder: (context) => MyProductsScreen(),
+          settings: settings,
+        );
+      case Flows.avaliar:
+        return MaterialPageRoute(
+          builder: (context) => AvaliarScreen(),
+          settings: settings,
+        );
+      case Flows.all_reviews:
+        return MaterialPageRoute(
+          builder: (context) => AllReviewsScreen(),
           settings: settings,
         );
     }

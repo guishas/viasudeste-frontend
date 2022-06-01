@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:viasudeste/library/navigation/flows.dart';
+import 'package:viasudeste/library/utilities/obj_mem.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/src/blocs/produto_bloc.dart';
 import 'package:viasudeste/src/models/review_model.dart';
@@ -294,8 +296,14 @@ class _ProdutoScreenState extends State<ProdutoScreen> {
                               child: Padding(
                                 padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    _bloc.addProductToCart(context);
+                                  onPressed: () async {
+                                    ObjMem.objetoHelp2 = _bloc.reviewsList.value;
+
+                                    var ret = await Navigator.pushNamed(context, Flows.all_reviews);
+
+                                    if (ret != null) {
+                                      ObjMem.objetoHelp2 = null;
+                                    }
                                   }, 
                                   child: _bloc.isLoadingCart.value
                                     ? SizedBox(

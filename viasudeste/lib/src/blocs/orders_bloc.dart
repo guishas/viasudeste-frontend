@@ -25,7 +25,27 @@ class OrdersBloc extends BaseBloc {
     final _list = await api.getPedidosByClienteId(ObjMem.currentUser!.userId.toString());
 
     if (_list != null) {
-      pedidosList.sink.add(_list);
+      List<PedidoModel> finalList = [];
+
+      for (PedidoModel pModel in _list) {
+        if (pModel.pedidoStatus.toString() == "Em andamento") {
+          finalList.add(pModel);
+        }
+      }
+
+      for (PedidoModel pModel in _list) {
+        if (pModel.pedidoStatus.toString() == "A caminho") {
+          finalList.add(pModel);
+        }
+      }
+
+      for (PedidoModel pModel in _list) {
+        if (pModel.pedidoStatus.toString() == "Entregue") {
+          finalList.add(pModel);
+        }
+      }
+
+      pedidosList.sink.add(finalList);
     }
   }
 

@@ -9,4 +9,6 @@ class Flows {
   static const pedidos = 'PedidosScreen';
   static const pedido = 'PedidoScreen';
   static const produtos = 'MyProductsScreen';
+  static const avaliar = 'AvaliarScreen';
+  static const all_reviews = 'AllReviewsScreen';
 }

@@ -5,6 +5,7 @@ import 'package:viasudeste/src/models/cidade_model.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/models/create_pagamento_model.dart';
 import 'package:viasudeste/src/models/create_pedido_model.dart';
+import 'package:viasudeste/src/models/create_review_model.dart';
 import 'package:viasudeste/src/models/estado_model.dart';
 import 'package:viasudeste/src/models/my_reviews_model.dart';
 import 'package:viasudeste/src/models/pagamento_model.dart';
@@ -12,6 +13,7 @@ import 'package:viasudeste/src/models/pedido_model.dart';
 import 'package:viasudeste/src/models/produto_model.dart';
 import 'package:viasudeste/src/models/review_model.dart';
 import 'package:viasudeste/src/models/update_cliente_model.dart';
+import 'package:viasudeste/src/models/update_pedido_model.dart';
 import 'package:viasudeste/src/models/update_vendedor_model.dart';
 import 'package:viasudeste/src/models/vendedor_model.dart';
 import 'package:viasudeste/src/models/wishlist_model.dart';
@@ -454,6 +456,44 @@ class Api {
 
       if (_response.statusCode == 200) {
         return PagamentoModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ReviewModel?> createReview(CreateReviewModel reviewModel) async {
+    try {
+      String _path = Config.apiEndpoint + 'reviews/adicionar/';
+
+      Response _response = await Dio().post(
+        _path,
+        data: reviewModel,
+      );
+
+      if (_response.statusCode == 200) {
+        return ReviewModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<PedidoModel?> updatePedido(UpdatePedidoModel pedidoModel) async {
+    try {
+      String _path = Config.apiEndpoint + 'pedidos/atualizar/';
+
+      Response _response = await Dio().put(
+        _path,
+        data: pedidoModel,
+      );
+
+      if (_response.statusCode == 200) {
+        return PedidoModel.fromJson(_response.data);
       } else {
         return null;
       }
