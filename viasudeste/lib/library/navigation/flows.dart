@@ -8,4 +8,5 @@ class Flows {
   static const finalizar = 'FinalizarCompraScreen';
   static const pedidos = 'PedidosScreen';
   static const pedido = 'PedidoScreen';
+  static const produtos = 'MyProductsScreen';
 }

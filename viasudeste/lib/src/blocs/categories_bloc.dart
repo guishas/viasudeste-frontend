@@ -9,7 +9,10 @@ class CategoriesBloc extends BaseBloc {
   final Api api = Api();
 
   final categorias = BehaviorSubject<List<CategoriaModel>?>.seeded(null);
-  final List<IconData> icons = [Icons.toys_outlined, Icons.phone_iphone, Icons.menu_book];
+  final List<IconData> icons = [Icons.toys_outlined, Icons.phone_iphone, Icons.menu_book,
+                                Icons.sports_basketball, Icons.all_inbox_rounded, Icons.pan_tool_outlined,
+                                Icons.health_and_safety, Icons.piano_outlined, Icons.panorama_outlined,
+                                Icons.notes_rounded, Icons.snowshoeing_sharp, Icons.wc, Icons.games];
 
   void initStateScreen() {
     

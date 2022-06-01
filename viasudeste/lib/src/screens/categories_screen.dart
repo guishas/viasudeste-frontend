@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:viasudeste/library/navigation/flows.dart';
+import 'package:viasudeste/library/utilities/obj_mem.dart';
 import 'package:viasudeste/library/utilities/styles.dart';
 import 'package:viasudeste/src/blocs/categories_bloc.dart';
 import 'package:viasudeste/src/models/categoria_model.dart';
@@ -55,7 +56,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      
+                      ObjMem.objetoCategoriaId = _bloc.categorias.value![index].categoriaId.toString();
+                      ObjMem.shouldUpdateCategory = true;
+
+                      Navigator.pushReplacementNamed(context, Flows.home);
                     },
                     child: Card(
                       color: Styles.mainLightGreyColor,

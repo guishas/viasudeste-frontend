@@ -7,4 +7,6 @@ class ObjMem {
 
   static dynamic objetoHelp1;
   static dynamic objetoHelp2;
+  static String? objetoCategoriaId;
+  static bool? shouldUpdateCategory;
 }

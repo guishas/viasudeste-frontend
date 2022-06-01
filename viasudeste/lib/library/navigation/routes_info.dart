@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:viasudeste/src/screens/finalizar_compra_screen.dart';
 import 'package:viasudeste/src/screens/home_screen.dart';
 import 'package:viasudeste/src/screens/login_screen.dart';
+import 'package:viasudeste/src/screens/my_products_screen.dart';
 import 'package:viasudeste/src/screens/my_reviews_screen.dart';
 import 'package:viasudeste/src/screens/orders_screen.dart';
 import 'package:viasudeste/src/screens/pedido_screen.dart';
@@ -57,6 +58,11 @@ class RoutesInfo {
       case Flows.pedido:
         return MaterialPageRoute(
           builder: (context) => PedidoScreen(),
+          settings: settings,
+        );
+      case Flows.produtos:
+        return MaterialPageRoute(
+          builder: (context) => MyProductsScreen(),
           settings: settings,
         );
     }

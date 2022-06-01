@@ -59,7 +59,12 @@ class _MainScreenState extends State<MainScreen> {
                 contentPadding: EdgeInsets.zero
               ),
               onSubmitted: (String? value) {
-                print(value);
+                _bloc.searchString(value.toString());
+              },
+              onChanged: (String? string) {
+                if (string == "") {
+                  _bloc.searchString("");
+                }
               },
               cursorColor: Styles.mainBlackColor,
               style: TextStyle(
@@ -73,89 +78,103 @@ class _MainScreenState extends State<MainScreen> {
         stream: _bloc.produtosList.stream,
         builder: (context, snapshot) {
           return snapshot.hasData
-            ? GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 2 / 3,
-                ),
-                itemCount: _bloc.produtosList.value!.length,
-                itemBuilder: (gridContext, index) {
-                  return GestureDetector(
-                    onTap: () async {
-                      ObjMem.objetoHelp1 = _bloc.produtosList.value![index];
+            ? _bloc.produtosList.value!.isNotEmpty
+              ? GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2 / 3,
+                  ),
+                  itemCount: _bloc.produtosList.value!.length,
+                  itemBuilder: (gridContext, index) {
+                    return GestureDetector(
+                      onTap: () async {
+                        ObjMem.objetoHelp1 = _bloc.produtosList.value![index];
 
-                      var ret = await Navigator.pushNamed(context, Flows.produto);
+                        var ret = await Navigator.pushNamed(context, Flows.produto);
 
-                      if (ret != null) {
-                        ObjMem.objetoHelp1 = null;
-                      }
-                    },
-                    child: Card(
-                      color: Styles.mainWhiteColor,
-                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      elevation: 8.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25))
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                            child: Container(
-                              width: double.infinity,
-                              height: 120,
-                              child: _bloc.produtosList.value![index].produtoImagem == null
-                                ? Image.asset(
-                                  'assets/images/viasudeste-logo-preto.png',
-                                  fit: BoxFit.contain,
-                                )
-                                : Image.network(
-                                  _bloc.produtosList.value![index].produtoImagem.toString(),
-                                  fit: BoxFit.contain,
-                                ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
+                        if (ret != null) {
+                          ObjMem.objetoHelp1 = null;
+                        }
+                      },
+                      child: Card(
+                        color: Styles.mainWhiteColor,
+                        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        elevation: 8.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
                               padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                              child: Text(
-                                _bloc.produtosList.value![index].produtoNome.toString(),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.justify,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 5,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 10, left: 15, right: 10, bottom: 10),
-                            child: Container(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    _bloc.produtosList.value![index].produtoPreco.toString().split(".")[1].length == 1
-                                    ? "R\$ " + _bloc.produtosList.value![index].produtoPreco.toString().replaceAll('.', ",") + "0"
-                                    : "R\$ " + _bloc.produtosList.value![index].produtoPreco.toString().replaceAll('.', ","),
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Calibri'
-                                    ),
+                              child: Container(
+                                width: double.infinity,
+                                height: 120,
+                                child: _bloc.produtosList.value![index].produtoImagem == null
+                                  ? Image.asset(
+                                    'assets/images/viasudeste-logo-preto.png',
+                                    fit: BoxFit.contain,
                                   )
-                                ],
+                                  : Image.network(
+                                    _bloc.produtosList.value![index].produtoImagem.toString(),
+                                    fit: BoxFit.contain,
+                                  ),
                               ),
                             ),
-                          )
-                        ],
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                                child: Text(
+                                  _bloc.produtosList.value![index].produtoNome.toString(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.justify,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 5,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 10, left: 15, right: 10, bottom: 10),
+                              child: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      _bloc.produtosList.value![index].produtoPreco.toString().split(".")[1].length == 1
+                                      ? "R\$ " + _bloc.produtosList.value![index].produtoPreco.toString().replaceAll('.', ",") + "0"
+                                      : "R\$ " + _bloc.produtosList.value![index].produtoPreco.toString().replaceAll('.', ","),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Calibri'
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
+                    );
+                  }
+                )
+              : Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Text(
+                      "Não existe nenhum produto no momento! Volte mais tarde",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                  );
-                }
-              )
+                  ),
+                )
             : Center(
                 child: CircularProgressIndicator(
                   color: Styles.mainPinkColor,

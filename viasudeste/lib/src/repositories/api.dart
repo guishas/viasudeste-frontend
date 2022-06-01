@@ -425,4 +425,24 @@ class Api {
       return null;
     }
   }
+
+  Future<List<ProdutoModel>?> getProdutosByVendedorId(String? vendedorId) async {
+    try {
+      String _path = Config.apiEndpoint + 'produtos/vendedor/$vendedorId';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        List<ProdutoModel> _list = (_response.data as List)
+            .map((e) => new ProdutoModel.fromJson(e))
+            .toList();
+
+        return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }
