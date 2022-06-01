@@ -165,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(top: 10),
                 child: ElevatedButton(
                   onPressed: () {
-        
+                    Navigator.pushNamed(context, Flows.pedidos);
                   }, 
                   child: Row(
                     children: [
@@ -181,47 +181,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               padding: EdgeInsets.only(left: 5),
                               child: Text(
                                 'Meus Pedidos',
-                                style: TextStyle(
-                                  color: Styles.mainLightGreyColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_right_outlined,
-                        color: Styles.mainLightGreyColor,
-                      )
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
-                    primary: Styles.mainWhiteColor,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: ElevatedButton(
-                  onPressed: () {
-        
-                  }, 
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.payment_rounded,
-                              color: Styles.mainPinkColor,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                              child: Text(
-                                'Meus Pagamentos',
                                 style: TextStyle(
                                   color: Styles.mainLightGreyColor,
                                   fontWeight: FontWeight.bold,

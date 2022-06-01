@@ -373,4 +373,56 @@ class Api {
       return null;
     }
   }
+
+  Future<String?> getCidadeById(String? cidadeId) async {
+    try {
+      String _path = Config.apiEndpoint + 'cidades/$cidadeId';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        return _response.data["nome"];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<String?> getEstadoById(String? estadoId) async {
+    try {
+      String _path = Config.apiEndpoint + 'estados/$estadoId';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        return _response.data["nome"];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<PedidoModel>?> getPedidosByClienteId(String? clienteId) async {
+    try {
+      String _path = Config.apiEndpoint + 'pedidos/cliente/$clienteId';
+
+      Response _response = await Dio().get(_path);
+
+      if (_response.statusCode == 200) {
+        List<PedidoModel> _list = (_response.data as List)
+            .map((e) => new PedidoModel.fromJson(e))
+            .toList();
+
+        return _list;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }

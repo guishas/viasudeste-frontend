@@ -24,6 +24,9 @@ class FinalizarCompraBloc extends BaseBloc {
   final TextEditingController dataController = TextEditingController();
   final TextEditingController cvvController = TextEditingController();
 
+  final cidadeNome = BehaviorSubject<String?>.seeded(null);
+  final estadoNome = BehaviorSubject<String?>.seeded(null);
+
   var maskNumeroCartao = MaskTextInputFormatter(
     mask: "#### #### #### ####",
     filter: {"#": RegExp(r'[0-9]')},
@@ -44,10 +47,13 @@ class FinalizarCompraBloc extends BaseBloc {
       produtos.sink.add(ObjMem.objetoHelp1);
     }
 
+    getEstadoNomeById();
   }
 
   void disposeScreen() {
     produtos.close();
+    estadoNome.close();
+    cidadeNome.close();
 
     disposeBaseBloc();
   }
@@ -60,6 +66,24 @@ class FinalizarCompraBloc extends BaseBloc {
     }
 
     return soma.toString();
+  }
+
+  void getCidadeNomeById() async {
+    final _name = await api.getCidadeById(ObjMem.currentUser!.userCidadeId.toString());
+
+    if (_name != null) {
+      cidadeNome.sink.add(_name);
+    }
+  }
+
+  void getEstadoNomeById() async {
+    final _name = await api.getEstadoById(ObjMem.currentUser!.userEstadoId.toString());
+
+    if (_name != null) {
+      estadoNome.sink.add(_name);
+    }
+
+    getCidadeNomeById();
   }
 
   Future<bool> addAllItems(GlobalKey<FormState> formState, BuildContext context) async {
@@ -96,7 +120,6 @@ class FinalizarCompraBloc extends BaseBloc {
       }
 
       isLoading.sink.add(false);
-      Utils().showSnackBar(context, Text('Pedido(s) feito(s) com sucesso!'));
       return true;
     } else {
       Utils().showSnackBar(context, Text('Verifique os campos'));
@@ -128,7 +151,9 @@ class FinalizarCompraBloc extends BaseBloc {
               size: 40,
             ),
             Text(
-              'Seus pedidos foram efetuados com sucesso! Volte para seu perfil para visualizar seus pedidos',
+              produtos.value!.length == 1
+              ? 'Seu pedido foi efetuado com sucesso! Volte para seu perfil para visualizar seus pedidos'
+              : 'Seus pedidos foram efetuados com sucesso! Volte para seu perfil para visualizar seus pedidos',
               style: TextStyle(
                 fontFamily: 'Cutive Mono',
                 fontSize: 18,
