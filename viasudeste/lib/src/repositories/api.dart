@@ -532,21 +532,21 @@ class Api {
       String fileName = file.path.split('/').last;
 
       FormData formData = FormData.fromMap({
-          "file": await MultipartFile.fromFile(
-            file.path,
-            filename: fileName,
-            contentType: MediaType("image", "${file.path.split(".").last}"),
-          ),
-          "id": produtoId,
-        });
+        "file": await MultipartFile.fromFile(
+          file.path,
+          filename: fileName,
+          contentType: MediaType("image", "${file.path.split(".").last}"),
+        ),
+        "produtoId": produtoId,
+      });
 
-        Response _response = await Dio().post(_path, data: formData);
+      Response _response = await Dio().post(_path, data: formData);
 
-        if (_response.statusMessage == 'OK') {
-          return MediaModel.fromJson(_response.data);
-        } else {
-          return null;
-        }
+      if (_response.statusMessage == 'OK') {
+        return MediaModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
     } catch (e) {
       return null;
     }

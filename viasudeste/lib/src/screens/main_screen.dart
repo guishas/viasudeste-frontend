@@ -119,6 +119,9 @@ class _MainScreenState extends State<MainScreen> {
                                   : Image.network(
                                     _bloc.produtosList.value![index].produtoImagem.toString(),
                                     fit: BoxFit.contain,
+                                    errorBuilder: (context, object, st) {
+                                      return Text("Falha");
+                                    },
                                   ),
                               ),
                             ),
