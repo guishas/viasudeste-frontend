@@ -116,12 +116,9 @@ class _MainScreenState extends State<MainScreen> {
                                     'assets/images/viasudeste-logo-preto.png',
                                     fit: BoxFit.contain,
                                   )
-                                  : Image.network(
-                                    _bloc.produtosList.value![index].produtoImagem.toString(),
+                                  :  Image.asset(
+                                    'assets/images/viasudeste-logo-preto.png',
                                     fit: BoxFit.contain,
-                                    errorBuilder: (context, object, st) {
-                                      return Text("Falha");
-                                    },
                                   ),
                               ),
                             ),
