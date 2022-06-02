@@ -53,7 +53,11 @@ class _SplashScreenState extends State<SplashScreen> {
           ObjMem.currentUser = UserModel.fromJson(model!.toJson(), false);
         }
 
-        Navigator.pushReplacementNamed(context, Flows.home);    
+        if (ObjMem.currentUser!.userIsVendedor == true) {
+          Navigator.pushReplacementNamed(context, Flows.vend_home);   
+        } else {
+          Navigator.pushReplacementNamed(context, Flows.home);   
+        }
       } else {
         Navigator.pushReplacementNamed(context, Flows.login);
       }

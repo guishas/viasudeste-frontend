@@ -161,85 +161,135 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, Flows.pedidos);
-                  }, 
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.list_alt_rounded,
-                              color: Styles.mainPinkColor,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                              child: Text(
-                                'Meus Pedidos',
-                                style: TextStyle(
-                                  color: Styles.mainLightGreyColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+              Visibility(
+                visible: ObjMem.currentUser!.userIsVendedor == true,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Flows.vend_produtos);
+                    }, 
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.list_alt_outlined,
+                                color: Styles.mainPinkColor,
                               ),
-                            )
-                          ],
+                              Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  'Meus produtos',
+                                  style: TextStyle(
+                                    color: Styles.mainLightGreyColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      Icon(
-                        Icons.arrow_right_outlined,
-                        color: Styles.mainLightGreyColor,
-                      )
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
-                    primary: Styles.mainWhiteColor,
+                        Icon(
+                          Icons.arrow_right_outlined,
+                          color: Styles.mainLightGreyColor,
+                        )
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
+                      primary: Styles.mainWhiteColor,
+                    ),
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, Flows.avaliacoes);
-                  }, 
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.rate_review_outlined,
-                              color: Styles.mainPinkColor,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5),
-                              child: Text(
-                                'Minhas Avaliações',
-                                style: TextStyle(
-                                  color: Styles.mainLightGreyColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+              Visibility(
+                visible: ObjMem.currentUser!.userIsVendedor != true,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Flows.pedidos);
+                    }, 
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.list_alt_rounded,
+                                color: Styles.mainPinkColor,
                               ),
-                            )
-                          ],
+                              Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  'Meus Pedidos',
+                                  style: TextStyle(
+                                    color: Styles.mainLightGreyColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      Icon(
-                        Icons.arrow_right_outlined,
-                        color: Styles.mainLightGreyColor,
-                      )
-                    ],
+                        Icon(
+                          Icons.arrow_right_outlined,
+                          color: Styles.mainLightGreyColor,
+                        )
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
+                      primary: Styles.mainWhiteColor,
+                    ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
-                    primary: Styles.mainWhiteColor,
+                ),
+              ),
+              Visibility(
+                visible: ObjMem.currentUser!.userIsVendedor != true,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, Flows.avaliacoes);
+                    }, 
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.rate_review_outlined,
+                                color: Styles.mainPinkColor,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  'Minhas Avaliações',
+                                  style: TextStyle(
+                                    color: Styles.mainLightGreyColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_right_outlined,
+                          color: Styles.mainLightGreyColor,
+                        )
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 40),
+                      primary: Styles.mainWhiteColor,
+                    ),
                   ),
                 ),
               ),

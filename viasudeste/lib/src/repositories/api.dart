@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:viasudeste/library/utilities/config.dart';
 import 'package:viasudeste/src/models/categoria_model.dart';
 import 'package:viasudeste/src/models/cidade_model.dart';
 import 'package:viasudeste/src/models/cliente_model.dart';
 import 'package:viasudeste/src/models/create_pagamento_model.dart';
 import 'package:viasudeste/src/models/create_pedido_model.dart';
+import 'package:viasudeste/src/models/create_produto_model.dart';
 import 'package:viasudeste/src/models/create_review_model.dart';
 import 'package:viasudeste/src/models/estado_model.dart';
+import 'package:viasudeste/src/models/media_model.dart';
 import 'package:viasudeste/src/models/my_reviews_model.dart';
 import 'package:viasudeste/src/models/pagamento_model.dart';
 import 'package:viasudeste/src/models/pedido_model.dart';
@@ -497,6 +502,51 @@ class Api {
       } else {
         return null;
       }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<ProdutoModel?> createProduto(CreateProdutoModel produtoModel) async {
+    try {
+      String _path = Config.apiEndpoint + 'produtos/adicionar/';
+
+      Response _response = await Dio().post(
+        _path,
+        data: produtoModel,
+      );
+
+      if (_response.statusCode == 200) {
+        return ProdutoModel.fromJson(_response.data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<MediaModel?> createMedia(File file, String produtoId) async {
+    try {
+      String _path = Config.apiEndpoint + 'medias/picture/';
+      String fileName = file.path.split('/').last;
+
+      FormData formData = FormData.fromMap({
+          "file": await MultipartFile.fromFile(
+            file.path,
+            filename: fileName,
+            contentType: MediaType("image", "${file.path.split(".").last}"),
+          ),
+          "id": produtoId,
+        });
+
+        Response _response = await Dio().post(_path, data: formData);
+
+        if (_response.statusMessage == 'OK') {
+          return MediaModel.fromJson(_response.data);
+        } else {
+          return null;
+        }
     } catch (e) {
       return null;
     }

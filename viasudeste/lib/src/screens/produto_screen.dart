@@ -336,92 +336,95 @@ class _ProdutoScreenState extends State<ProdutoScreen> {
                         ),
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(
-                            color: Styles.mainLightGreyColor,
+                    Visibility(
+                      visible: ObjMem.currentUser!.userIsVendedor != true,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                              color: Styles.mainLightGreyColor,
+                            )
                           )
-                        )
-                      ),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 5),
-                            child: StreamBuilder<bool>(
-                              stream: _bloc.isLoadingCart.stream,
-                              builder: (context, snapshot) {
-                                return ElevatedButton(
-                                  onPressed: () {
-                                    _bloc.addProductToCart(context);
-                                  }, 
-                                  child: _bloc.isLoadingCart.value
-                                    ? SizedBox(
-                                      height: 25,
-                                      width: 25,
-                                      child: CircularProgressIndicator(
-                                        color: Styles.mainWhiteColor,
+                        ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 5),
+                              child: StreamBuilder<bool>(
+                                stream: _bloc.isLoadingCart.stream,
+                                builder: (context, snapshot) {
+                                  return ElevatedButton(
+                                    onPressed: () {
+                                      _bloc.addProductToCart(context);
+                                    }, 
+                                    child: _bloc.isLoadingCart.value
+                                      ? SizedBox(
+                                        height: 25,
+                                        width: 25,
+                                        child: CircularProgressIndicator(
+                                          color: Styles.mainWhiteColor,
+                                        ),
+                                      )
+                                      : Text(
+                                        'Adicionar ao carrinho',
+                                        style: TextStyle(
+                                          fontFamily: 'Cutive Mono',
+                                          fontWeight: FontWeight.bold,
+                                          color: Styles.mainBlackColor,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    )
-                                    : Text(
-                                      'Adicionar ao carrinho',
-                                      style: TextStyle(
-                                        fontFamily: 'Cutive Mono',
-                                        fontWeight: FontWeight.bold,
-                                        color: Styles.mainBlackColor,
-                                        fontSize: 16,
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Styles.mainLightPinkColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(25))
                                       ),
+                                      fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 45)
                                     ),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Styles.mainLightPinkColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(25))
-                                    ),
-                                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 45)
-                                  ),
-                                );
-                              }
+                                  );
+                                }
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 5, bottom: 5),
-                            child: StreamBuilder<bool>(
-                              stream: _bloc.isLoading.stream,
-                              builder: (context, snapshot) {
-                                return ElevatedButton(
-                                  onPressed: () {
-                                    _bloc.addProductToWishlist(context);
-                                  }, 
-                                  child: _bloc.isLoading.value
-                                    ? SizedBox(
-                                      height: 25,
-                                      width: 25,
-                                      child: CircularProgressIndicator(
-                                        color: Styles.mainWhiteColor,
+                            Padding(
+                              padding: EdgeInsets.only(top: 5, bottom: 5),
+                              child: StreamBuilder<bool>(
+                                stream: _bloc.isLoading.stream,
+                                builder: (context, snapshot) {
+                                  return ElevatedButton(
+                                    onPressed: () {
+                                      _bloc.addProductToWishlist(context);
+                                    }, 
+                                    child: _bloc.isLoading.value
+                                      ? SizedBox(
+                                        height: 25,
+                                        width: 25,
+                                        child: CircularProgressIndicator(
+                                          color: Styles.mainWhiteColor,
+                                        ),
+                                      )
+                                      : Text(
+                                        'Adicionar à lista de desejos',
+                                        style: TextStyle(
+                                          fontFamily: 'Cutive Mono',
+                                          fontWeight: FontWeight.bold,
+                                          color: Styles.mainBlackColor,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    )
-                                    : Text(
-                                      'Adicionar à lista de desejos',
-                                      style: TextStyle(
-                                        fontFamily: 'Cutive Mono',
-                                        fontWeight: FontWeight.bold,
-                                        color: Styles.mainBlackColor,
-                                        fontSize: 16,
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Styles.mainPinkColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(25))
                                       ),
+                                      fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 45)
                                     ),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Styles.mainPinkColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(25))
-                                    ),
-                                    fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 45)
-                                  ),
-                                );
-                              }
+                                  );
+                                }
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     )
                   ],

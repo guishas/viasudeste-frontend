@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:viasudeste/src/screens/all_reviews_screen.dart';
 import 'package:viasudeste/src/screens/avaliar_screen.dart';
+import 'package:viasudeste/src/screens/criar_produto_screen.dart';
 import 'package:viasudeste/src/screens/finalizar_compra_screen.dart';
 import 'package:viasudeste/src/screens/home_screen.dart';
 import 'package:viasudeste/src/screens/login_screen.dart';
@@ -11,6 +12,8 @@ import 'package:viasudeste/src/screens/pedido_screen.dart';
 import 'package:viasudeste/src/screens/personal_data_screen.dart';
 import 'package:viasudeste/src/screens/produto_screen.dart';
 import 'package:viasudeste/src/screens/registrar_screen.dart';
+import 'package:viasudeste/src/screens/vend_my_products_screen.dart';
+import 'package:viasudeste/src/screens/vendedor_home_screen.dart';
 import 'flows.dart';
 
 class RoutesInfo {
@@ -75,6 +78,21 @@ class RoutesInfo {
       case Flows.all_reviews:
         return MaterialPageRoute(
           builder: (context) => AllReviewsScreen(),
+          settings: settings,
+        );
+      case Flows.vend_home:
+        return MaterialPageRoute(
+          builder: (context) => VendedorHomeScreen(),
+          settings: settings,
+        );
+      case Flows.vend_produtos:
+        return MaterialPageRoute(
+          builder: (context) => VendedorMeusProdutos(),
+          settings: settings,
+        );
+      case Flows.criar_produto:
+        return MaterialPageRoute(
+          builder: (context) => CriarProdutoScreen(),
           settings: settings,
         );
     }

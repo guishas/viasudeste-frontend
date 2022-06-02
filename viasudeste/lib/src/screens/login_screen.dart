@@ -248,12 +248,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             if (_bloc.rememberMe.value) {
                               _bloc.rememberUser();
-                              _bloc.sharedPreferencesHelper.addBoolToSharedPreferences("isVendedor", false);
+                              
+                              if (ObjMem.currentUser!.userIsVendedor == true) {
+                                _bloc.sharedPreferencesHelper.addBoolToSharedPreferences("isVendedor", true);
+                              } else {
+                                _bloc.sharedPreferencesHelper.addBoolToSharedPreferences("isVendedor", false);
+                              }
+
                               _bloc.sharedPreferencesHelper.addStringToSharedPreferences(
                                 "userId", ObjMem.currentUser!.userId ?? '');
                             }
               
-                            Navigator.pushReplacementNamed(context, Flows.home);
+                            if (ObjMem.currentUser!.userIsVendedor == true) {
+                              Navigator.pushReplacementNamed(context, Flows.vend_home);
+                            } else {
+                              Navigator.pushReplacementNamed(context, Flows.home);
+                            }
                           } 
                         }, 
                         child: StreamBuilder<bool>(

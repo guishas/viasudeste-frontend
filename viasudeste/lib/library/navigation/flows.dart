@@ -11,4 +11,7 @@ class Flows {
   static const produtos = 'MyProductsScreen';
   static const avaliar = 'AvaliarScreen';
   static const all_reviews = 'AllReviewsScreen';
+  static const vend_home = 'VendedorHomeScreen';
+  static const vend_produtos = 'VendedorMeusProdutosScreen';
+  static const criar_produto = 'CriarProdutoScreen';
 }

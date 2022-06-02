@@ -74,8 +74,8 @@ class _PedidoScreenState extends State<PedidoScreen> {
                                   "assets/animations/ongoing.json"  
                                 )
                               : Icon(
-                                  Icons.check_box_rounded,
-                                  size: 120,
+                                  Icons.check_circle_rounded,
+                                  size: 220,
                                   color: Colors.green,
                                 )
                           )
